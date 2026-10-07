@@ -421,6 +421,93 @@ gap:10px;
 margin-top:18px
 }
 
+/* FOTOS */
+
+.photo-upload{
+grid-column:1/-1;
+background:#151515;
+border:1px solid #303030;
+border-radius:14px;
+padding:15px
+}
+
+.photo-upload-title{
+font-size:14px;
+font-weight:700;
+margin-bottom:6px
+}
+
+.photo-upload-info{
+font-size:12px;
+color:#777;
+margin-bottom:12px;
+line-height:1.5
+}
+
+.photo-input{
+width:100%;
+background:#1d1d1d;
+border:1px dashed #555;
+border-radius:11px;
+padding:14px;
+color:#fff;
+cursor:pointer
+}
+
+.photo-preview{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+gap:10px;
+margin-top:15px
+}
+
+.photo-card{
+position:relative;
+border-radius:11px;
+overflow:hidden;
+background:#202020;
+border:1px solid #333;
+aspect-ratio:1/1
+}
+
+.photo-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.photo-label{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:7px 5px;
+background:rgba(0,0,0,.75);
+font-size:10px;
+text-align:center
+}
+
+.photo-remove{
+position:absolute;
+top:6px;
+right:6px;
+width:27px;
+height:27px;
+border:0;
+border-radius:50%;
+background:#a00000;
+color:#fff;
+font-weight:bold;
+cursor:pointer
+}
+
+.photo-empty{
+color:#666;
+font-size:12px;
+padding:12px 0
+}
+
 .empty{
 text-align:center;
 padding:35px;
@@ -496,13 +583,14 @@ padding:15px
 }
 
 .mobile-menu{
-display:block;
+display:inline-block;
 background:#181818;
 border:1px solid #333;
 color:white;
 padding:9px 12px;
 border-radius:9px;
-cursor:pointer
+cursor:pointer;
+margin-right:8px
 }
 
 .cards{
@@ -523,6 +611,7 @@ font-size:21px
 }
 
 @media(max-width:480px){
+
 .cards{
 grid-template-columns:1fr 1fr
 }
@@ -538,13 +627,20 @@ font-size:24px
 .login-box{
 padding:24px 18px
 }
+
+.photo-preview{
+grid-template-columns:repeat(2,1fr)
+}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+========================= -->
+
 <div id="loginScreen" class="login">
 
 <div class="login-box">
@@ -556,18 +652,29 @@ onerror="this.style.display='none'"
 >
 
 <h1>Alpalisa Automotores</h1>
+
 <p>Panel Administrativo PRO</p>
 
 <div id="loginError" class="error"></div>
 
 <div class="field">
 <label>Email</label>
-<input id="email" type="email" autocomplete="username" placeholder="Correo electrónico">
+<input
+id="email"
+type="email"
+autocomplete="username"
+placeholder="Correo electrónico"
+>
 </div>
 
 <div class="field">
 <label>Contraseña</label>
-<input id="password" type="password" autocomplete="current-password" placeholder="Contraseña">
+<input
+id="password"
+type="password"
+autocomplete="current-password"
+placeholder="Contraseña"
+>
 </div>
 
 <button id="loginBtn" class="btn btn-red full">
@@ -578,20 +685,26 @@ Ingresar al panel
 </div>
 
 
-<!-- APP -->
+<!-- =========================
+     APP
+========================= -->
+
 <div id="app" class="app">
 
 <aside id="sidebar" class="sidebar">
 
 <div class="brand">
+
 <img
 src="https://eouftihvjycdloxyhnwc.supabase.co/storage/v1/object/public/vehiculos/logo.png"
 onerror="this.style.display='none'"
 >
+
 <div>
 <strong>Alpalisa</strong>
 <small>Automotores · PRO</small>
 </div>
+
 </div>
 
 <nav class="nav">
@@ -634,9 +747,19 @@ Cerrar sesión
 <div class="topbar">
 
 <div>
-<button id="mobileMenu" class="mobile-menu">☰</button>
-<h1 id="pageTitle">Dashboard PRO</h1>
+
+<button id="mobileMenu" class="mobile-menu">
+☰
+</button>
+
+<h1 id="pageTitle" style="display:inline-block">
+Dashboard PRO
+</h1>
+
+<br>
+
 <span id="welcome"></span>
+
 </div>
 
 <button id="refreshBtn" class="btn btn-dark">
@@ -646,7 +769,10 @@ Cerrar sesión
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- =========================
+     DASHBOARD
+========================= -->
+
 <section id="dashboard" class="section active">
 
 <div class="cards">
@@ -683,28 +809,35 @@ Cerrar sesión
 
 </div>
 
-
 <div class="grid2">
 
 <div class="panel">
+
 <div class="panel-head">
 <h2>Actividad reciente</h2>
 </div>
 
 <div id="recentActivity">
-<div class="empty">Cargando actividad...</div>
+<div class="empty">
+Cargando actividad...
 </div>
+</div>
+
 </div>
 
 
 <div class="panel">
+
 <div class="panel-head">
 <h2>Vehículos destacados</h2>
 </div>
 
 <div id="featuredVehicles">
-<div class="empty">Cargando...</div>
+<div class="empty">
+Cargando...
 </div>
+</div>
+
 </div>
 
 </div>
@@ -712,12 +845,16 @@ Cerrar sesión
 </section>
 
 
-<!-- INVENTARIO -->
+<!-- =========================
+     INVENTARIO
+========================= -->
+
 <section id="inventario" class="section">
 
 <div class="panel">
 
 <div class="panel-head">
+
 <h2>Inventario de vehículos</h2>
 
 <button class="btn btn-red" onclick="showSection('nuevo')">
@@ -733,7 +870,9 @@ placeholder="Buscar por marca, modelo o año..."
 >
 
 <div id="inventoryList">
-<div class="empty">Cargando vehículos...</div>
+<div class="empty">
+Cargando vehículos...
+</div>
 </div>
 
 </div>
@@ -741,13 +880,19 @@ placeholder="Buscar por marca, modelo o año..."
 </section>
 
 
-<!-- NUEVO / EDITAR -->
+<!-- =========================
+     NUEVO / EDITAR
+========================= -->
+
 <section id="nuevo" class="section">
 
 <div class="panel">
 
 <div class="panel-head">
-<h2 id="formTitle">Agregar vehículo</h2>
+
+<h2 id="formTitle">
+Agregar vehículo
+</h2>
 
 <button class="btn btn-dark" onclick="resetForm()">
 Limpiar
@@ -755,78 +900,174 @@ Limpiar
 
 </div>
 
+
 <form id="vehicleForm">
 
-<input id="vehicleId" type="hidden">
+<input
+id="vehicleId"
+type="hidden"
+>
+
 
 <div class="form-grid">
+
 
 <div class="field">
 <label>Marca *</label>
 <input id="marca" required>
 </div>
 
+
 <div class="field">
 <label>Modelo *</label>
 <input id="modelo" required>
 </div>
+
 
 <div class="field">
 <label>Año</label>
 <input id="anio" type="number">
 </div>
 
+
 <div class="field">
 <label>Kilómetros</label>
 <input id="kilometros" type="number" value="0">
 </div>
+
 
 <div class="field">
 <label>Precio</label>
 <input id="precio" type="number">
 </div>
 
+
 <div class="field">
+
 <label>Combustible</label>
+
 <select id="combustible">
-<option value="">Seleccionar</option>
-<option>Nafta</option>
-<option>Diésel</option>
-<option>GNC</option>
-<option>Híbrido</option>
-<option>Eléctrico</option>
+
+<option value="">
+Seleccionar
+</option>
+
+<option>
+Nafta
+</option>
+
+<option>
+Diésel
+</option>
+
+<option>
+GNC
+</option>
+
+<option>
+Híbrido
+</option>
+
+<option>
+Eléctrico
+</option>
+
 </select>
+
 </div>
 
+
 <div class="field">
+
 <label>Transmisión</label>
+
 <select id="transmision">
-<option value="">Seleccionar</option>
-<option>Manual</option>
-<option>Automática</option>
-<option>CVT</option>
+
+<option value="">
+Seleccionar
+</option>
+
+<option>
+Manual
+</option>
+
+<option>
+Automática
+</option>
+
+<option>
+CVT
+</option>
+
 </select>
+
 </div>
 
-<div class="field">
-<label>Imagen principal — URL</label>
-<input id="imagen" placeholder="https://...">
-</div>
 
 <div class="field">
+
 <label>Cuotas</label>
-<input id="cuotas" placeholder="Ej: Hasta 48 cuotas">
+
+<input
+id="cuotas"
+placeholder="Ej: Hasta 48 cuotas"
+>
+
 </div>
 
-<div class="field">
+
+<!-- =========================
+     SUBIDA DE FOTOS
+========================= -->
+
+<div class="photo-upload">
+
+<div class="photo-upload-title">
+📸 Fotos del vehículo
+</div>
+
+<div class="photo-upload-info">
+Seleccioná una o varias fotos directamente desde la galería.
+La primera foto será utilizada como imagen principal.
+</div>
+
+<input
+id="imageFiles"
+class="photo-input"
+type="file"
+accept="image/*"
+multiple
+>
+
+<div id="imagePreview" class="photo-preview">
+
+<div class="photo-empty">
+Todavía no seleccionaste fotos.
+</div>
+
+</div>
+
+</div>
+
+
+<div class="field" style="grid-column:1/-1">
+
 <label>Descripción</label>
-<textarea id="descripcion"></textarea>
-</div>
+
+<textarea
+id="descripcion"
+placeholder="Descripción del vehículo..."
+></textarea>
 
 </div>
 
+</div>
 
-<h3 style="margin:20px 0 12px">Opciones comerciales</h3>
+
+<h3 style="margin:20px 0 12px">
+Opciones comerciales
+</h3>
+
 
 <div class="checks">
 
@@ -835,35 +1076,42 @@ Limpiar
 Apto crédito
 </label>
 
+
 <label class="check">
 <input id="financiado" type="checkbox">
 Financiación
 </label>
+
 
 <label class="check">
 <input id="consignacion" type="checkbox">
 Consignación
 </label>
 
+
 <label class="check">
 <input id="permuta" type="checkbox">
 Permuta
 </label>
+
 
 <label class="check">
 <input id="entrega" type="checkbox">
 Entrega
 </label>
 
+
 <label class="check">
 <input id="destacado" type="checkbox">
 ⭐ Destacado
 </label>
 
+
 <label class="check">
 <input id="oferta" type="checkbox">
 🔥 Oferta
 </label>
+
 
 <label class="check">
 <input id="vendido" type="checkbox">
@@ -875,11 +1123,19 @@ Entrega
 
 <div class="form-actions">
 
-<button type="submit" class="btn btn-red">
+<button
+type="submit"
+class="btn btn-red"
+id="saveVehicleBtn"
+>
 💾 Guardar vehículo
 </button>
 
-<button type="button" class="btn btn-dark" onclick="resetForm()">
+<button
+type="button"
+class="btn btn-dark"
+onclick="resetForm()"
+>
 Cancelar
 </button>
 
@@ -892,7 +1148,10 @@ Cancelar
 </section>
 
 
-<!-- INTENCIONES -->
+<!-- =========================
+     INTENCIONES
+========================= -->
+
 <section id="intenciones" class="section">
 
 <div class="panel">
@@ -902,9 +1161,11 @@ Cancelar
 </div>
 
 <div id="intentions">
+
 <div class="empty">
 Todavía no hay intenciones registradas.
 </div>
+
 </div>
 
 </div>
@@ -912,7 +1173,10 @@ Todavía no hay intenciones registradas.
 </section>
 
 
-<!-- ESTADISTICAS -->
+<!-- =========================
+     ESTADISTICAS
+========================= -->
+
 <section id="estadisticas" class="section">
 
 <div class="cards">
@@ -923,11 +1187,13 @@ Todavía no hay intenciones registradas.
 <div class="label">Eventos totales</div>
 </div>
 
+
 <div class="card">
 <div class="icon">📅</div>
 <div id="analyticsToday" class="number">0</div>
 <div class="label">Eventos recientes</div>
 </div>
+
 
 <div class="card">
 <div class="icon">🚗</div>
@@ -937,28 +1203,36 @@ Todavía no hay intenciones registradas.
 
 </div>
 
+
 <div class="panel">
 
-<h2>Actividad</h2>
+<h2>
+Actividad últimos 7 días
+</h2>
 
 <div id="chart" class="chart"></div>
 
 </div>
 
+
 <div class="panel">
 
-<h2>Últimos eventos</h2>
+<h2>
+Últimos eventos
+</h2>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
+
 <tr>
 <th>Evento</th>
 <th>Vehículo</th>
 <th>Fecha</th>
 </tr>
+
 </thead>
 
 <tbody id="analyticsTable"></tbody>
@@ -972,18 +1246,24 @@ Todavía no hay intenciones registradas.
 </section>
 
 
-<!-- IA -->
+<!-- =========================
+     IA
+========================= -->
+
 <section id="ia" class="section">
 
 <div class="ai-box">
 
-<h2>🤖 Inteligencia Artificial PRO</h2>
+<h2>
+🤖 Inteligencia Artificial PRO
+</h2>
 
 <p>
-Este módulo está preparado para integrar IA real para Alpalisa Automotores.
-La conexión con el proveedor de IA debe hacerse mediante un backend seguro,
-manteniendo las claves privadas fuera del navegador.
+Módulo preparado para conectar IA real de forma segura mediante
+backend. Las claves privadas nunca deben colocarse en este archivo
+ni quedar expuestas en el navegador.
 </p>
+
 
 <div style="margin-top:20px">
 
@@ -993,12 +1273,21 @@ manteniendo las claves privadas fuera del navegador.
 
 </div>
 
+
 <div style="margin-top:20px">
 
 <textarea
 id="aiResult"
 placeholder="La descripción generada aparecerá aquí..."
-style="width:100%;min-height:180px;background:#111;color:white;border:1px solid #333;border-radius:12px;padding:15px"
+style="
+width:100%;
+min-height:180px;
+background:#111;
+color:white;
+border:1px solid #333;
+border-radius:12px;
+padding:15px
+"
 ></textarea>
 
 </div>
@@ -1008,10 +1297,15 @@ style="width:100%;min-height:180px;background:#111;color:white;border:1px solid 
 </section>
 
 </main>
+
 </div>
 
 
 <script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
 "https://eouftihvjycdloxyhnwc.supabase.co";
@@ -1026,39 +1320,69 @@ SUPABASE_KEY
 );
 
 
+/* =========================================================
+   VARIABLES
+========================================================= */
+
 let vehicles = [];
+
 let analytics = [];
 
+let selectedImages = [];
 
-/* LOGIN */
+let existingImages = [];
 
-document.getElementById("loginBtn").addEventListener("click", login);
 
-document.getElementById("password").addEventListener("keydown",e=>{
-if(e.key==="Enter") login();
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document
+.getElementById("loginBtn")
+.addEventListener("click",login);
+
+
+document
+.getElementById("password")
+.addEventListener("keydown",e=>{
+
+if(e.key==="Enter"){
+login();
+}
+
 });
+
 
 async function login(){
 
 const email =
-document.getElementById("email").value.trim();
+document
+.getElementById("email")
+.value
+.trim();
 
 const password =
-document.getElementById("password").value;
+document
+.getElementById("password")
+.value;
 
 const error =
 document.getElementById("loginError");
 
 error.style.display="none";
 
+
 if(!email || !password){
 
-error.textContent="Completá email y contraseña.";
+error.textContent =
+"Completá email y contraseña.";
 
 error.style.display="block";
 
 return;
+
 }
+
 
 const btn =
 document.getElementById("loginBtn");
@@ -1067,25 +1391,35 @@ btn.disabled=true;
 
 btn.textContent="Ingresando...";
 
-const {data,error:authError} =
+
+const {
+data,
+error:authError
+} =
 await supabaseClient.auth.signInWithPassword({
+
 email,
 password
+
 });
+
 
 btn.disabled=false;
 
 btn.textContent="Ingresar al panel";
 
+
 if(authError){
 
-error.textContent=
+error.textContent =
 "Email o contraseña incorrectos.";
 
 error.style.display="block";
 
 return;
+
 }
+
 
 if(data.session){
 
@@ -1096,7 +1430,9 @@ mostrarApp(data.user);
 }
 
 
-/* SESSION */
+/* =========================================================
+   SESSION
+========================================================= */
 
 async function comprobarSesion(){
 
@@ -1104,6 +1440,7 @@ const {
 data:{session}
 } =
 await supabaseClient.auth.getSession();
+
 
 if(session){
 
@@ -1113,23 +1450,36 @@ mostrarApp(session.user);
 
 }
 
+
 function mostrarApp(user){
 
-document.getElementById("loginScreen").style.display="none";
+document
+.getElementById("loginScreen")
+.style.display="none";
 
-document.getElementById("app").style.display="block";
 
-document.getElementById("welcome").textContent =
+document
+.getElementById("app")
+.style.display="block";
+
+
+document
+.getElementById("welcome")
+.textContent =
 "Sesión: " + (user.email || "");
+
 
 cargarTodo();
 
 }
 
 
-/* LOGOUT */
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-document.getElementById("logoutBtn")
+document
+.getElementById("logoutBtn")
 .addEventListener("click",async()=>{
 
 await supabaseClient.auth.signOut();
@@ -1139,9 +1489,12 @@ location.reload();
 });
 
 
-/* NAVEGACION */
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
 
-document.querySelectorAll(".nav button")
+document
+.querySelectorAll(".nav button")
 .forEach(btn=>{
 
 btn.addEventListener("click",()=>{
@@ -1155,60 +1508,93 @@ showSection(btn.dataset.section);
 
 function showSection(id){
 
-document.querySelectorAll(".section")
-.forEach(s=>s.classList.remove("active"));
+document
+.querySelectorAll(".section")
+.forEach(section=>{
+
+section.classList.remove("active");
+
+});
+
 
 const section =
 document.getElementById(id);
 
-if(section) section.classList.add("active");
 
-document.querySelectorAll(".nav button")
-.forEach(b=>{
+if(section){
+section.classList.add("active");
+}
 
-b.classList.toggle(
+
+document
+.querySelectorAll(".nav button")
+.forEach(button=>{
+
+button.classList.toggle(
 "active",
-b.dataset.section===id
+button.dataset.section===id
 );
 
 });
 
+
 const titles={
+
 dashboard:"Dashboard PRO",
+
 inventario:"Inventario",
+
 nuevo:"Gestión de vehículos",
+
 intenciones:"Intenciones",
+
 estadisticas:"Estadísticas",
+
 ia:"Inteligencia Artificial"
+
 };
 
-document.getElementById("pageTitle").textContent =
+
+document
+.getElementById("pageTitle")
+.textContent =
 titles[id] || "Alpalisa Automotores";
 
-document.getElementById("sidebar")
+
+document
+.getElementById("sidebar")
 .classList.remove("open");
 
 }
 
 
-/* MOBILE */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-document.getElementById("mobileMenu")
+document
+.getElementById("mobileMenu")
 .addEventListener("click",()=>{
 
-document.getElementById("sidebar")
+document
+.getElementById("sidebar")
 .classList.toggle("open");
 
 });
 
 
-/* REFRESH */
+/* =========================================================
+   REFRESH
+========================================================= */
 
-document.getElementById("refreshBtn")
+document
+.getElementById("refreshBtn")
 .addEventListener("click",cargarTodo);
 
 
-/* CARGA GENERAL */
+/* =========================================================
+   CARGAR TODO
+========================================================= */
 
 async function cargarTodo(){
 
@@ -1225,7 +1611,9 @@ renderAnalytics();
 }
 
 
-/* VEHICULOS */
+/* =========================================================
+   VEHÍCULOS
+========================================================= */
 
 async function cargarVehiculos(){
 
@@ -1238,6 +1626,7 @@ await supabaseClient
 .select("*")
 .order("created_at",{ascending:false});
 
+
 if(error){
 
 console.error(error);
@@ -1245,14 +1634,18 @@ console.error(error);
 vehicles=[];
 
 return;
+
 }
+
 
 vehicles=data || [];
 
 }
 
 
-/* ANALYTICS */
+/* =========================================================
+   ANALYTICS
+========================================================= */
 
 async function cargarAnalytics(){
 
@@ -1266,6 +1659,7 @@ await supabaseClient
 .order("created_at",{ascending:false})
 .limit(500);
 
+
 if(error){
 
 console.error(error);
@@ -1273,108 +1667,157 @@ console.error(error);
 analytics=[];
 
 return;
+
 }
+
 
 analytics=data || [];
 
 }
 
 
-/* DASHBOARD */
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
 function renderDashboard(){
 
 const activeVehicles =
 vehicles.filter(v=>!v.vendido);
 
+
 const featured =
 vehicles.filter(v=>v.destacado);
+
 
 const offers =
 vehicles.filter(v=>v.oferta);
 
+
 const sold =
 vehicles.filter(v=>v.vendido);
 
-document.getElementById("statVehicles")
-.textContent=activeVehicles.length;
 
-document.getElementById("statFeatured")
-.textContent=featured.length;
+document
+.getElementById("statVehicles")
+.textContent =
+activeVehicles.length;
 
-document.getElementById("statOffers")
-.textContent=offers.length;
 
-document.getElementById("statSold")
-.textContent=sold.length;
+document
+.getElementById("statFeatured")
+.textContent =
+featured.length;
 
-document.getElementById("statViews")
-.textContent=analytics.length;
 
+document
+.getElementById("statOffers")
+.textContent =
+offers.length;
+
+
+document
+.getElementById("statSold")
+.textContent =
+sold.length;
+
+
+document
+.getElementById("statViews")
+.textContent =
+analytics.length;
+
+
+/* ACTIVIDAD */
 
 const recent =
 document.getElementById("recentActivity");
 
+
 if(!analytics.length){
 
-recent.innerHTML=
+recent.innerHTML =
 '<div class="empty">No hay actividad registrada.</div>';
 
 }else{
 
-recent.innerHTML=
-analytics.slice(0,8).map(a=>`
+recent.innerHTML =
+analytics
+.slice(0,8)
+.map(a=>`
 
 <div style="
 padding:11px 0;
 border-bottom:1px solid #242424
 ">
 
-<strong>${escapeHtml(a.tipo || "Evento")}</strong>
+<strong>
+${escapeHtml(a.tipo || "Evento")}
+</strong>
 
-<div style="color:#777;font-size:11px;margin-top:4px">
+<div style="
+color:#777;
+font-size:11px;
+margin-top:4px
+">
+
 ${formatDate(a.created_at)}
-</div>
 
 </div>
 
-`).join("");
+</div>
+
+`)
+.join("");
 
 }
 
+
+/* DESTACADOS */
 
 const fv =
 document.getElementById("featuredVehicles");
 
+
 const featuredVehicles =
-vehicles.filter(v=>v.destacado).slice(0,6);
+vehicles
+.filter(v=>v.destacado)
+.slice(0,6);
+
 
 if(!featuredVehicles.length){
 
-fv.innerHTML=
+fv.innerHTML =
 '<div class="empty">No hay vehículos destacados.</div>';
 
 }else{
 
-fv.innerHTML=
-featuredVehicles.map(vehicleHTML).join("");
+fv.innerHTML =
+featuredVehicles
+.map(vehicleHTML)
+.join("");
 
 }
 
 }
 
 
-/* INVENTARIO */
+/* =========================================================
+   INVENTARIO
+========================================================= */
 
 function renderInventory(){
 
 const container =
 document.getElementById("inventoryList");
 
+
 const query =
-(document.getElementById("searchVehicle")
-?.value || "")
+(
+document.getElementById("searchVehicle")?.value || ""
+)
 .toLowerCase();
+
 
 const list =
 vehicles.filter(v=>{
@@ -1382,26 +1825,34 @@ vehicles.filter(v=>{
 const text =
 `${v.marca || ""}
 ${v.modelo || ""}
-${v.anio || ""}`.toLowerCase();
+${v.anio || ""}`
+.toLowerCase();
+
 
 return text.includes(query);
 
 });
 
+
 if(!list.length){
 
-container.innerHTML=
+container.innerHTML =
 '<div class="empty">No se encontraron vehículos.</div>';
 
 return;
 
 }
 
+
 container.innerHTML =
 list.map(vehicleHTML).join("");
 
 }
 
+
+/* =========================================================
+   VEHÍCULO HTML
+========================================================= */
 
 function vehicleHTML(v){
 
@@ -1429,31 +1880,65 @@ ${formatPrice(v.precio)}
 
 <div style="margin-top:6px">
 
-${v.destacado ? '<span class="badge yellow">DESTACADO</span>':''}
+${
+v.destacado
+?
+'<span class="badge yellow">DESTACADO</span>'
+:
+''
+}
 
-${v.oferta ? '<span class="badge red">OFERTA</span>':''}
+${
+v.oferta
+?
+'<span class="badge red">OFERTA</span>'
+:
+''
+}
 
-${v.vendido ? '<span class="badge green">VENDIDO</span>':''}
+${
+v.vendido
+?
+'<span class="badge green">VENDIDO</span>'
+:
+''
+}
 
-${v.apto_credito ? '<span class="badge blue">CRÉDITO</span>':''}
+${
+v.apto_credito
+?
+'<span class="badge blue">CRÉDITO</span>'
+:
+''
+}
 
-${v.permuta ? '<span class="badge gray">PERMUTA</span>':''}
+${
+v.permuta
+?
+'<span class="badge gray">PERMUTA</span>'
+:
+''
+}
 
 </div>
 
 </div>
+
 
 <div class="actions">
 
 <button
 class="btn btn-dark"
-onclick="editarVehiculo(${v.id})">
+onclick="editarVehiculo(${v.id})"
+>
 Editar
 </button>
 
+
 <button
 class="btn btn-danger"
-onclick="eliminarVehiculo(${v.id})">
+onclick="eliminarVehiculo(${v.id})"
+>
 Eliminar
 </button>
 
@@ -1466,164 +1951,651 @@ Eliminar
 }
 
 
-/* BUSCADOR */
+/* =========================================================
+   BUSCADOR
+========================================================= */
 
-document.getElementById("searchVehicle")
+document
+.getElementById("searchVehicle")
 .addEventListener("input",renderInventory);
 
 
-/* FORM */
+/* =========================================================
+   FOTOS — SELECCIÓN
+========================================================= */
 
-document.getElementById("vehicleForm")
-.addEventListener("submit",guardarVehiculo);
+document
+.getElementById("imageFiles")
+.addEventListener("change",async function(){
 
+const files =
+Array.from(this.files || []);
+
+
+if(!files.length){
+return;
+}
+
+
+/*
+   Agregamos las fotos nuevas a la selección.
+   Esto permite seleccionar nuevamente desde la galería.
+*/
+
+selectedImages =
+selectedImages.concat(files);
+
+
+await renderPhotoPreview();
+
+});
+
+
+/* =========================================================
+   PREVISUALIZACIÓN
+========================================================= */
+
+async function renderPhotoPreview(){
+
+const preview =
+document.getElementById("imagePreview");
+
+
+preview.innerHTML="";
+
+
+if(!selectedImages.length && !existingImages.length){
+
+preview.innerHTML =
+`
+<div class="photo-empty">
+Todavía no seleccionaste fotos.
+</div>
+`;
+
+return;
+
+}
+
+
+/* FOTOS EXISTENTES */
+
+existingImages.forEach((url,index)=>{
+
+const card =
+document.createElement("div");
+
+card.className="photo-card";
+
+
+card.innerHTML=`
+
+<img src="${escapeAttr(url)}">
+
+<div class="photo-label">
+${index===0 ? "⭐ Principal" : "Foto existente"}
+</div>
+
+`;
+
+
+preview.appendChild(card);
+
+});
+
+
+/* FOTOS NUEVAS */
+
+selectedImages.forEach((file,index)=>{
+
+const reader =
+new FileReader();
+
+
+reader.onload=function(e){
+
+const card =
+document.createElement("div");
+
+card.className="photo-card";
+
+
+card.innerHTML=`
+
+<img src="${e.target.result}">
+
+<button
+type="button"
+class="photo-remove"
+onclick="removeSelectedImage(${index})"
+>
+×
+</button>
+
+<div class="photo-label">
+${
+existingImages.length===0 && index===0
+?
+"⭐ Principal"
+:
+"Foto nueva"
+}
+</div>
+
+`;
+
+
+preview.appendChild(card);
+
+};
+
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+
+/* =========================================================
+   ELIMINAR FOTO SELECCIONADA
+========================================================= */
+
+function removeSelectedImage(index){
+
+selectedImages.splice(index,1);
+
+renderPhotoPreview();
+
+}
+
+
+/* =========================================================
+   SUBIR FOTOS A SUPABASE
+========================================================= */
+
+async function subirFotos(vehicleId){
+
+const urls=[];
+
+
+if(!selectedImages.length){
+
+return urls;
+
+}
+
+
+for(let i=0;i<selectedImages.length;i++){
+
+const file =
+selectedImages[i];
+
+
+const extension =
+(
+file.name
+.split(".")
+.pop() || "jpg"
+)
+.toLowerCase();
+
+
+const safeName =
+`${Date.now()}-${i}-${Math.random()
+.toString(36)
+.substring(2,8)}.${extension}`;
+
+
+const filePath =
+`${vehicleId}/${safeName}`;
+
+
+const {
+error
+} =
+await supabaseClient
+.storage
+.from("vehiculos")
+.upload(
+filePath,
+file,
+{
+cacheControl:"3600",
+upsert:false
+}
+);
+
+
+if(error){
+
+console.error(
+"Error subiendo imagen:",
+error
+);
+
+continue;
+
+}
+
+
+const {
+data
+} =
+supabaseClient
+.storage
+.from("vehiculos")
+.getPublicUrl(filePath);
+
+
+if(data?.publicUrl){
+
+urls.push(data.publicUrl);
+
+}
+
+}
+
+
+return urls;
+
+}
+
+
+/* =========================================================
+   FORMULARIO
+========================================================= */
+
+document
+.getElementById("vehicleForm")
+.addEventListener(
+"submit",
+guardarVehiculo
+);
+
+
+/* =========================================================
+   GUARDAR VEHÍCULO
+========================================================= */
 
 async function guardarVehiculo(e){
 
 e.preventDefault();
 
+
 const id =
-document.getElementById("vehicleId").value;
+document
+.getElementById("vehicleId")
+.value;
+
+
+const saveButton =
+document
+.getElementById("saveVehicleBtn");
+
+
+saveButton.disabled=true;
+
+saveButton.textContent="Guardando...";
+
+
+try{
+
 
 const vehicle={
 
-marca:document.getElementById("marca").value.trim(),
+marca:
+document
+.getElementById("marca")
+.value
+.trim(),
 
-modelo:document.getElementById("modelo").value.trim(),
+modelo:
+document
+.getElementById("modelo")
+.value
+.trim(),
 
-anio:toNumber("anio"),
+anio:
+toNumber("anio"),
 
-kilometros:toNumber("kilometros") || 0,
+kilometros:
+toNumber("kilometros") || 0,
 
-precio:toNumber("precio"),
+precio:
+toNumber("precio"),
 
-combustible:document.getElementById("combustible").value,
+combustible:
+document
+.getElementById("combustible")
+.value,
 
-transmision:document.getElementById("transmision").value,
+transmision:
+document
+.getElementById("transmision")
+.value,
 
-imagen:document.getElementById("imagen").value.trim(),
+imagen:
+existingImages[0] || "",
 
-descripcion:document.getElementById("descripcion").value.trim(),
+imagenes:
+existingImages,
 
-apto_credito:document.getElementById("apto_credito").checked,
+descripcion:
+document
+.getElementById("descripcion")
+.value
+.trim(),
 
-financiado:document.getElementById("financiado").checked,
+apto_credito:
+document
+.getElementById("apto_credito")
+.checked,
 
-consignacion:document.getElementById("consignacion").checked,
+financiado:
+document
+.getElementById("financiado")
+.checked,
 
-permuta:document.getElementById("permuta").checked,
+consignacion:
+document
+.getElementById("consignacion")
+.checked,
 
-entrega:document.getElementById("entrega").checked,
+permuta:
+document
+.getElementById("permuta")
+.checked,
 
-cuotas:document.getElementById("cuotas").value.trim(),
+entrega:
+document
+.getElementById("entrega")
+.checked,
 
-destacado:document.getElementById("destacado").checked,
+cuotas:
+document
+.getElementById("cuotas")
+.value
+.trim(),
 
-oferta:document.getElementById("oferta").checked,
+destacado:
+document
+.getElementById("destacado")
+.checked,
 
-vendido:document.getElementById("vendido").checked
+oferta:
+document
+.getElementById("oferta")
+.checked,
+
+vendido:
+document
+.getElementById("vendido")
+.checked
 
 };
 
 
 let result;
 
-if(id){
+
+/* CREAR */
+
+if(!id){
 
 result =
 await supabaseClient
 .from("vehiculos")
-.update(vehicle)
-.eq("id",id);
-
-}else{
-
-result =
-await supabaseClient
-.from("vehiculos")
-.insert(vehicle);
-
-}
-
-if(result.error){
-
-alert(
-"No se pudo guardar el vehículo.\n\n"+
-result.error.message
-);
-
-console.error(result.error);
-
-return;
-
-}
-
-alert(
-id
-? "Vehículo actualizado correctamente."
-: "Vehículo agregado correctamente."
-);
-
-resetForm();
-
-await cargarTodo();
-
-showSection("inventario");
+.insert(vehicle)
+.select()
+.single();
 
 }
 
 
 /* EDITAR */
 
+else{
+
+result =
+await supabaseClient
+.from("vehiculos")
+.update(vehicle)
+.eq("id",id)
+.select()
+.single();
+
+}
+
+
+if(result.error){
+
+throw result.error;
+
+}
+
+
+const vehicleId =
+result.data.id;
+
+
+/* SUBIR NUEVAS FOTOS */
+
+if(selectedImages.length){
+
+const newUrls =
+await subirFotos(vehicleId);
+
+
+if(newUrls.length){
+
+const allImages =
+existingImages.concat(newUrls);
+
+
+const updateResult =
+await supabaseClient
+.from("vehiculos")
+.update({
+
+imagen:
+allImages[0] || "",
+
+imagenes:
+allImages
+
+})
+.eq("id",vehicleId);
+
+
+if(updateResult.error){
+
+throw updateResult.error;
+
+}
+
+}
+
+}
+
+
+alert(
+id
+?
+"✅ Vehículo actualizado correctamente."
+:
+"✅ Vehículo agregado correctamente."
+);
+
+
+resetForm();
+
+
+await cargarTodo();
+
+
+showSection("inventario");
+
+
+}catch(error){
+
+console.error(error);
+
+
+alert(
+"No se pudo guardar el vehículo.\n\n"+
+(error.message || error)
+);
+
+
+}finally{
+
+saveButton.disabled=false;
+
+saveButton.textContent=
+"💾 Guardar vehículo";
+
+}
+
+}
+
+
+/* =========================================================
+   EDITAR VEHÍCULO
+========================================================= */
+
 function editarVehiculo(id){
 
 const v =
-vehicles.find(x=>String(x.id)===String(id));
+vehicles.find(
+x=>String(x.id)===String(id)
+);
+
 
 if(!v)return;
 
-document.getElementById("vehicleId").value=v.id;
 
-document.getElementById("marca").value=v.marca || "";
+document
+.getElementById("vehicleId")
+.value=v.id;
 
-document.getElementById("modelo").value=v.modelo || "";
 
-document.getElementById("anio").value=v.anio || "";
+document
+.getElementById("marca")
+.value=v.marca || "";
 
-document.getElementById("kilometros").value=v.kilometros || 0;
 
-document.getElementById("precio").value=v.precio || "";
+document
+.getElementById("modelo")
+.value=v.modelo || "";
 
-document.getElementById("combustible").value=v.combustible || "";
 
-document.getElementById("transmision").value=v.transmision || "";
+document
+.getElementById("anio")
+.value=v.anio || "";
 
-document.getElementById("imagen").value=v.imagen || "";
 
-document.getElementById("descripcion").value=v.descripcion || "";
+document
+.getElementById("kilometros")
+.value=v.kilometros || 0;
 
-document.getElementById("cuotas").value=v.cuotas || "";
 
-document.getElementById("apto_credito").checked=!!v.apto_credito;
+document
+.getElementById("precio")
+.value=v.precio || "";
 
-document.getElementById("financiado").checked=!!v.financiado;
 
-document.getElementById("consignacion").checked=!!v.consignacion;
+document
+.getElementById("combustible")
+.value=v.combustible || "";
 
-document.getElementById("permuta").checked=!!v.permuta;
 
-document.getElementById("entrega").checked=!!v.entrega;
+document
+.getElementById("transmision")
+.value=v.transmision || "";
 
-document.getElementById("destacado").checked=!!v.destacado;
 
-document.getElementById("oferta").checked=!!v.oferta;
+document
+.getElementById("cuotas")
+.value=v.cuotas || "";
 
-document.getElementById("vendido").checked=!!v.vendido;
 
-document.getElementById("formTitle").textContent =
+document
+.getElementById("descripcion")
+.value=v.descripcion || "";
+
+
+document
+.getElementById("apto_credito")
+.checked=!!v.apto_credito;
+
+
+document
+.getElementById("financiado")
+.checked=!!v.financiado;
+
+
+document
+.getElementById("consignacion")
+.checked=!!v.consignacion;
+
+
+document
+.getElementById("permuta")
+.checked=!!v.permuta;
+
+
+document
+.getElementById("entrega")
+.checked=!!v.entrega;
+
+
+document
+.getElementById("destacado")
+.checked=!!v.destacado;
+
+
+document
+.getElementById("oferta")
+.checked=!!v.oferta;
+
+
+document
+.getElementById("vendido")
+.checked=!!v.vendido;
+
+
+/*
+   Cargamos las fotos existentes
+*/
+
+existingImages =
+Array.isArray(v.imagenes)
+?
+[...v.imagenes]
+:
+(v.imagen ? [v.imagen] : []);
+
+
+selectedImages=[];
+
+
+document
+.getElementById("imageFiles")
+.value="";
+
+
+renderPhotoPreview();
+
+
+document
+.getElementById("formTitle")
+.textContent =
 "Editar vehículo";
 
+
 showSection("nuevo");
+
 
 window.scrollTo({
 top:0,
@@ -1633,27 +2605,38 @@ behavior:"smooth"
 }
 
 
-/* ELIMINAR */
+/* =========================================================
+   ELIMINAR VEHÍCULO
+========================================================= */
 
 async function eliminarVehiculo(id){
 
 const v =
-vehicles.find(x=>String(x.id)===String(id));
+vehicles.find(
+x=>String(x.id)===String(id)
+);
+
 
 if(!v)return;
+
 
 const ok =
 confirm(
 `¿Eliminar ${v.marca} ${v.modelo}?\n\nEsta acción no se puede deshacer.`
 );
 
+
 if(!ok)return;
 
-const {error} =
+
+const {
+error
+} =
 await supabaseClient
 .from("vehiculos")
 .delete()
 .eq("id",id);
+
 
 if(error){
 
@@ -1666,47 +2649,87 @@ return;
 
 }
 
+
 await cargarTodo();
 
 }
 
 
-/* RESET */
+/* =========================================================
+   RESET FORMULARIO
+========================================================= */
 
 function resetForm(){
 
-document.getElementById("vehicleForm").reset();
+document
+.getElementById("vehicleForm")
+.reset();
 
-document.getElementById("vehicleId").value="";
 
-document.getElementById("kilometros").value=0;
+document
+.getElementById("vehicleId")
+.value="";
 
-document.getElementById("formTitle").textContent =
+
+document
+.getElementById("kilometros")
+.value=0;
+
+
+document
+.getElementById("formTitle")
+.textContent=
 "Agregar vehículo";
+
+
+selectedImages=[];
+
+existingImages=[];
+
+
+document
+.getElementById("imageFiles")
+.value="";
+
+
+renderPhotoPreview();
 
 }
 
 
-/* ANALYTICS */
+/* =========================================================
+   ANALYTICS
+========================================================= */
 
 function renderAnalytics(){
 
-document.getElementById("analyticsTotal")
-.textContent=analytics.length;
+document
+.getElementById("analyticsTotal")
+.textContent=
+analytics.length;
+
 
 const now =
 new Date();
 
+
 const dayAgo =
-new Date(now.getTime()-86400000);
+new Date(
+now.getTime()-86400000
+);
+
 
 const recent =
 analytics.filter(a=>
 new Date(a.created_at)>=dayAgo
 );
 
-document.getElementById("analyticsToday")
-.textContent=recent.length;
+
+document
+.getElementById("analyticsToday")
+.textContent=
+recent.length;
+
 
 const vehicleIds =
 new Set(
@@ -1715,31 +2738,48 @@ analytics
 .map(a=>a.vehiculo_id)
 );
 
-document.getElementById("analyticsVehicles")
-.textContent=vehicleIds.size;
+
+document
+.getElementById("analyticsVehicles")
+.textContent=
+vehicleIds.size;
 
 
 const tbody =
 document.getElementById("analyticsTable");
 
+
 tbody.innerHTML =
-analytics.slice(0,50).map(a=>{
+analytics
+.slice(0,50)
+.map(a=>{
 
 const v =
-vehicles.find(x=>
-String(x.id)===String(a.vehiculo_id)
+vehicles.find(
+x=>
+String(x.id)===
+String(a.vehiculo_id)
 );
+
 
 return `
 
 <tr>
 
-<td>${escapeHtml(a.tipo || "Evento")}</td>
+<td>
+${escapeHtml(a.tipo || "Evento")}
+</td>
 
 <td>
-${v
-? escapeHtml(v.marca+" "+v.modelo)
-: "-"}
+${
+v
+?
+escapeHtml(
+v.marca+" "+v.modelo
+)
+:
+"-"
+}
 </td>
 
 <td>
@@ -1750,7 +2790,8 @@ ${formatDate(a.created_at)}
 
 `;
 
-}).join("");
+})
+.join("");
 
 
 renderChart();
@@ -1758,12 +2799,18 @@ renderChart();
 }
 
 
+/* =========================================================
+   GRAFICO
+========================================================= */
+
 function renderChart(){
 
 const chart =
 document.getElementById("chart");
 
+
 const days=[];
+
 
 for(let i=6;i>=0;i--){
 
@@ -1771,22 +2818,30 @@ const d=new Date();
 
 d.setHours(0,0,0,0);
 
-d.setDate(d.getDate()-i);
+d.setDate(
+d.getDate()-i
+);
 
 days.push(d);
 
 }
 
+
 const counts =
 days.map(d=>{
 
-const next=new Date(d);
+const next =
+new Date(d);
 
-next.setDate(next.getDate()+1);
+next.setDate(
+next.getDate()+1
+);
+
 
 return analytics.filter(a=>{
 
-const date=new Date(a.created_at);
+const date =
+new Date(a.created_at);
 
 return date>=d && date<next;
 
@@ -1794,14 +2849,20 @@ return date>=d && date<next;
 
 });
 
+
 const max =
 Math.max(...counts,1);
+
 
 chart.innerHTML =
 counts.map((count,i)=>{
 
 const height =
-Math.max(8,(count/max)*180);
+Math.max(
+8,
+(count/max)*180
+);
+
 
 return `
 
@@ -1810,37 +2871,61 @@ class="bar"
 style="height:${height}px"
 title="${count} eventos"
 >
+
 <span>
 ${days[i].getDate()}/${days[i].getMonth()+1}
 </span>
+
 </div>
 
 `;
 
-}).join("");
+})
+.join("");
 
 }
 
 
-/* IA */
+/* =========================================================
+   IA
+========================================================= */
 
-document.getElementById("aiGenerate")
-.addEventListener("click",()=>{
+document
+.getElementById("aiGenerate")
+.addEventListener(
+"click",
+()=>{
+
 
 const marca =
-document.getElementById("marca").value;
+document
+.getElementById("marca")
+.value;
+
 
 const modelo =
-document.getElementById("modelo").value;
+document
+.getElementById("modelo")
+.value;
+
 
 const anio =
-document.getElementById("anio").value;
+document
+.getElementById("anio")
+.value;
+
 
 const km =
-document.getElementById("kilometros").value;
+document
+.getElementById("kilometros")
+.value;
+
 
 const combustible =
-document.getElementById("combustible").value;
+document
+.getElementById("combustible")
+.value;
+
 
 if(!marca || !modelo){
 
@@ -1848,38 +2933,56 @@ alert(
 "Primero completá marca y modelo."
 );
 
+
 showSection("nuevo");
 
 return;
 
 }
 
+
 const texto =
 `${marca} ${modelo} ${anio || ""}
 en excelente oportunidad.
+
 Cuenta con ${formatNumber(km || 0)} km
 y motorización ${combustible || "a confirmar"}.
+
 Una excelente alternativa para quienes buscan
 calidad, confiabilidad y una unidad lista para disfrutar.
+
 Consultanos por financiación, permuta y disponibilidad.`;
 
-document.getElementById("aiResult").value=texto;
+
+document
+.getElementById("aiResult")
+.value=
+texto;
 
 });
 
 
-/* HELPERS */
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function toNumber(id){
 
 const value =
-document.getElementById(id).value;
+document
+.getElementById(id)
+.value;
 
-if(value==="")return null;
+
+if(value===""){
+return null;
+}
+
 
 return Number(value);
 
 }
+
 
 function formatNumber(n){
 
@@ -1888,10 +2991,19 @@ return Number(n || 0)
 
 }
 
+
 function formatPrice(p){
 
-if(p===null || p===undefined || p==="")
+if(
+p===null ||
+p===undefined ||
+p===""
+){
+
 return "Precio a consultar";
+
+}
+
 
 return "$ "+
 Number(p)
@@ -1899,14 +3011,19 @@ Number(p)
 
 }
 
+
 function formatDate(date){
 
-if(!date)return "-";
+if(!date){
+return "-";
+}
+
 
 return new Date(date)
 .toLocaleString("es-AR");
 
 }
+
 
 function escapeHtml(value){
 
@@ -1919,6 +3036,7 @@ return String(value ?? "")
 
 }
 
+
 function escapeAttr(value){
 
 return escapeHtml(value);
@@ -1926,11 +3044,13 @@ return escapeHtml(value);
 }
 
 
-/* ARRANQUE */
+/* =========================================================
+   INICIO
+========================================================= */
 
 comprobarSesion();
 
 </script>
 
 </body>
-</html>
+  </html>
