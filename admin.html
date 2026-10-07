@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Alpalisa Automotores | Administrador PRO</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#090909;
+  color:#fff
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+:root{
+  --red:#e10600;
+  --red2:#ff241c;
+  --dark:#0d0d0d;
+  --card:#151515;
+  --border:#292929;
+  --muted:#aaa
+}
+
+#login{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top right,#3b0000,transparent 40%),
+    #080808
+}
+
+.login-box{
+  width:100%;
+  max-width:430px;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:22px;
+  padding:32px;
+  box-shadow:0 20px 60px #000
+}
+
+.logo{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 15px;
+  border-radius:18px
+}
+
+h1,h2,h3{margin-top:0}
+.login-title{text-align:center;font-size:28px}
+.red{color:var(--red2)}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin:15px 0 7px
+}
+
+input,select,textarea{
+  width:100%;
+  background:#0a0a0a;
+  color:white;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:13px
+}
+
+textarea{min-height:110px;resize:vertical}
+
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--red)
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:12px 16px;
+  font-weight:bold;
+  color:white;
+  background:#292929
+}
+
+.btn-red{
+  background:linear-gradient(135deg,var(--red),#8d0000)
+}
+
+.btn:hover{filter:brightness(1.15)}
+
+.full{width:100%;margin-top:20px}
+
+#error-login{
+  color:#ff5d5d;
+  margin-top:15px;
+  text-align:center
+}
+
+#app{display:none}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(8,8,8,.96);
+  border-bottom:1px solid #252525;
+  backdrop-filter:blur(12px)
+}
+
+.header-inner{
+  max-width:1250px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+
+.brand img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  border-radius:10px
+}
+
+.brand strong{font-size:17px}
+.brand small{display:block;color:#999;margin-top:3px}
+
+nav{display:flex;gap:8px;flex-wrap:wrap}
+
+.container{
+  max-width:1250px;
+  margin:auto;
+  padding:25px 20px 60px
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px
+}
+
+.stat span{
+  display:block;
+  color:#999;
+  font-size:13px
+}
+
+.stat strong{
+  display:block;
+  font-size:28px;
+  margin-top:7px
+}
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  margin-top:22px
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px
+}
+
+.form-full{grid-column:1/-1}
+
+.checks{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:10px
+}
+
+.check{
+  background:#0c0c0c;
+  border:1px solid #292929;
+  border-radius:10px;
+  padding:11px;
+  display:flex;
+  gap:8px;
+  align-items:center
+}
+
+.check input{width:auto}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px
+}
+
+.vehicle-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px
+}
+
+.vehicle{
+  background:#0c0c0c;
+  border:1px solid #292929;
+  border-radius:16px;
+  overflow:hidden
+}
+
+.vehicle img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  background:#171717
+}
+
+.vehicle-body{padding:15px}
+
+.vehicle-title{
+  font-size:18px;
+  font-weight:bold
+}
+
+.vehicle-meta{
+  color:#999;
+  margin-top:6px;
+  font-size:14px
+}
+
+.price{
+  color:#ff3129;
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:10px
+}
+
+.tag{
+  font-size:11px;
+  padding:5px 7px;
+  border-radius:6px;
+  background:#262626
+}
+
+.tag.red{background:#5c0000;color:#fff}
+
+.vehicle-actions{
+  display:flex;
+  gap:7px;
+  margin-top:14px
+}
+
+.vehicle-actions button{flex:1}
+
+.empty{
+  text-align:center;
+  color:#888;
+  padding:40px
+}
+
+.loading{
+  padding:30px;
+  text-align:center;
+  color:#aaa
+}
+
+.notice{
+  background:#170000;
+  border:1px solid #550000;
+  color:#ffb0ad;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:18px
+}
+
+.ai-box{
+  border:1px solid #5a0000;
+  background:linear-gradient(135deg,#190000,#0d0d0d);
+  border-radius:16px;
+  padding:18px;
+  margin-top:20px
+}
+
+.ai-box h3{margin-bottom:5px}
+.ai-box p{color:#aaa;margin-top:0}
+
+.hidden{display:none!important}
+
+@media(max-width:950px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .vehicle-grid{grid-template-columns:repeat(2,1fr)}
+  .checks{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:650px){
+  .header-inner{align-items:flex-start}
+  .top{align-items:flex-start;flex-direction:column}
+  .grid,.vehicle-grid,.form-grid{grid-template-columns:1fr}
+  .checks{grid-template-columns:1fr}
+  .container{padding:18px 12px 40px}
+  .panel{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="login">
+  <div class="login-box">
+
+    <img
+      class="logo"
+      src="https://eouftihvjycdloxyhnwc.supabase.co/storage/v1/object/public/vehiculos/logo.png"
+      onerror="this.style.display='none'"
+      alt="Alpalisa Automotores">
+
+    <h1 class="login-title">
+      Alpalisa <span class="red">Automotores</span>
+    </h1>
+
+    <p style="text-align:center;color:#999">
+      Administrador PRO
+    </p>
+
+    <label>Email</label>
+    <input id="email" type="email"
+      placeholder="Automotoresalpalisa@gmail.com"
+      autocomplete="email">
+
+    <label>Contraseña</label>
+    <input id="password" type="password"
+      placeholder="Contraseña"
+      autocomplete="current-password">
+
+    <button class="btn btn-red full" onclick="login()">
+      🔐 INGRESAR AL ADMINISTRADOR
+    </button>
+
+    <div id="error-login"></div>
+  </div>
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app">
+
+<header>
+  <div class="header-inner">
+
+    <div class="brand">
+      <img
+        src="https://eouftihvjycdloxyhnwc.supabase.co/storage/v1/object/public/vehiculos/logo.png"
+        onerror="this.style.display='none'"
+        alt="">
+      <div>
+        <strong>Alpalisa Automotores</strong>
+        <small>Administrador PRO</small>
+      </div>
+    </div>
+
+    <nav>
+      <button class="btn" onclick="nuevoVehiculo()">➕ Nuevo</button>
+      <button class="btn" onclick="cargarVehiculos()">🔄 Actualizar</button>
+      <button class="btn" onclick="cerrarSesion()">🚪 Salir</button>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="container">
+
+  <div class="top">
+    <div>
+      <h1>Panel de administración</h1>
+      <p style="color:#999;margin:0">
+        Gestioná el inventario de Alpalisa Automotores.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ESTADÍSTICAS -->
+
+  <section class="grid">
+
+    <div class="stat">
+      <span>Vehículos</span>
+      <strong id="total">0</strong>
+    </div>
+
+    <div class="stat">
+      <span>Destacados</span>
+      <strong id="destacados">0</strong>
+    </div>
+
+    <div class="stat">
+      <span>Ofertas</span>
+      <strong id="ofertas">0</strong>
+    </div>
+
+    <div class="stat">
+      <span>Financiados</span>
+      <strong id="financiados">0</strong>
+    </div>
+
+  </section>
+
+
+  <!-- FORMULARIO -->
+
+  <section class="panel" id="formPanel">
+
+    <h2 id="formTitle">Agregar vehículo</h2>
+
+    <div class="notice">
+      🔐 Este inventario pertenece exclusivamente a Alpalisa Automotores.
+    </div>
+
+    <input id="vehicleId" type="hidden">
+
+    <div class="form-grid">
+
+      <div>
+        <label>Marca *</label>
+        <input id="marca" placeholder="Ej: Toyota">
+      </div>
+
+      <div>
+        <label>Modelo *</label>
+        <input id="modelo" placeholder="Ej: Hilux SRX">
+      </div>
+
+      <div>
+        <label>Año</label>
+        <input id="anio" type="number" placeholder="2024">
+      </div>
+
+      <div>
+        <label>Kilómetros</label>
+        <input id="kilometros" type="number" placeholder="35000">
+      </div>
+
+      <div>
+        <label>Precio</label>
+        <input id="precio" type="number" placeholder="25000000">
+      </div>
+
+      <div>
+        <label>Combustible</label>
+        <select id="combustible">
+          <option value="">Seleccionar</option>
+          <option>Nafta</option>
+          <option>Diésel</option>
+          <option>Híbrido</option>
+          <option>Eléctrico</option>
+          <option>GNC</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Transmisión</label>
+        <select id="transmision">
+          <option value="">Seleccionar</option>
+          <option>Manual</option>
+          <option>Automática</option>
+          <option>CVT</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Cuotas / financiación</label>
+        <input id="cuotas" placeholder="Ej: 12 cuotas">
+      </div>
+
+      <div class="form-full">
+        <label>Descripción</label>
+        <textarea id="descripcion"
+          placeholder="Descripción del vehículo..."></textarea>
+      </div>
+
+      <div class="form-full">
+
+        <label>URL de imagen principal</label>
+
+        <input id="imagen"
+          placeholder="https://...">
+
+        <small style="display:block;color:#777;margin-top:6px">
+          Más adelante conectaremos la subida directa de fotos desde el celular.
+        </small>
+
+      </div>
+
+      <div class="form-full">
+
+        <label>Opciones comerciales</label>
+
+        <div class="checks">
+
+          <label class="check">
+            <input type="checkbox" id="apto_credito">
+            💳 Apto crédito
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="financiado">
+            💰 Financiación
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="consignacion">
+            📋 Consignación
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="permuta">
+            🔄 Permuta
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="entrega">
+            🚗 Entrega
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="destacado">
+            ⭐ Destacado
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="oferta">
+            🔥 Oferta
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="vendido">
+            ❌ Vendido
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- IA -->
+
+    <div class="ai-box">
+
+      <h3>🤖 Asistente IA PRO</h3>
+
+      <p>
+        La integración de IA estará conectada mediante un backend seguro.
+        No vamos a exponer ninguna clave de IA en este administrador.
+      </p>
+
+      <button class="btn btn-red" onclick="generarDescripcionIA()">
+        ✨ Generar descripción con IA
+      </button>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button class="btn btn-red" onclick="guardarVehiculo()">
+        💾 Guardar vehículo
+      </button>
+
+      <button class="btn" onclick="nuevoVehiculo()">
+        Limpiar
+      </button>
+
+    </div>
+
+    <div id="formMessage"
+      style="margin-top:15px;color:#aaa"></div>
+
+  </section>
+
+
+  <!-- INVENTARIO -->
+
+  <section class="panel">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      flex-wrap:wrap;
+    ">
+
+      <div>
+        <h2>Inventario</h2>
+        <p style="color:#888;margin:0">
+          Vehículos publicados en Alpalisa.
+        </p>
+      </div>
+
+      <input
+        id="buscar"
+        placeholder="🔎 Buscar vehículo..."
+        oninput="renderVehiculos()"
+        style="max-width:300px"
+      >
+
+    </div>
+
+    <div id="vehicleList" class="vehicle-grid">
+      <div class="loading">Cargando vehículos...</div>
+    </div>
+
+  </section>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   SUPABASE
+============================================================ */
+
+const SUPABASE_URL =
+  "https://eouftihvjycdloxyhnwc.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_Bv76u7MQNLlLqc5VcM0tHA_cHoyxT5f";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* ============================================================
+   ESTADO
+============================================================ */
+
+let vehiculos = [];
+
+
+/* ============================================================
+   LOGIN
+============================================================ */
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const error =
+    document.getElementById("error-login");
+
+  error.textContent = "";
+
+  if(!email || !password){
+
+    error.textContent =
+      "Completá email y contraseña.";
+
+    return;
+  }
+
+  const {error:loginError} =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+  if(loginError){
+
+    error.textContent =
+      "No se pudo iniciar sesión: " +
+      loginError.message;
+
+    return;
+  }
+
+  mostrarApp();
+}
+
+
+/* ============================================================
+   SESIÓN
+============================================================ */
+
+async function comprobarSesion(){
+
+  const {data} =
+    await supabaseClient.auth.getSession();
+
+  if(data.session){
+
+    mostrarApp();
+
+  }else{
+
+    document.getElementById("login").style.display =
+      "flex";
+
+    document.getElementById("app").style.display =
+      "none";
+  }
+}
+
+
+async function cerrarSesion(){
+
+  await supabaseClient.auth.signOut();
+
+  location.reload();
+}
+
+
+function mostrarApp(){
+
+  document.getElementById("login").style.display =
+    "none";
+
+  document.getElementById("app").style.display =
+    "block";
+
+  cargarVehiculos();
+}
+
+
+/* ============================================================
+   CARGAR VEHÍCULOS
+============================================================ */
+
+async function cargarVehiculos(){
+
+  const list =
+    document.getElementById("vehicleList");
+
+  list.innerHTML =
+    '<div class="loading">Cargando vehículos...</div>';
+
+  const {data,error} =
+    await supabaseClient
+      .from("vehiculos")
+      .select("*")
+      .order("id",{ascending:false});
+
+  if(error){
+
+    list.innerHTML =
+      '<div class="empty">Error cargando vehículos.<br>' +
+      error.message +
+      '</div>';
+
+    return;
+  }
+
+  vehiculos = data || [];
+
+  actualizarStats();
+
+  renderVehiculos();
+}
+
+
+/* ============================================================
+   ESTADÍSTICAS
+============================================================ */
+
+function actualizarStats(){
+
+  document.getElementById("total").textContent =
+    vehiculos.length;
+
+  document.getElementById("destacados").textContent =
+    vehiculos.filter(v => v.destacado).length;
+
+  document.getElementById("ofertas").textContent =
+    vehiculos.filter(v => v.oferta).length;
+
+  document.getElementById("financiados").textContent =
+    vehiculos.filter(v => v.financiado).length;
+}
+
+
+/* ============================================================
+   RENDER
+============================================================ */
+
+function renderVehiculos(){
+
+  const list =
+    document.getElementById("vehicleList");
+
+  const search =
+    document.getElementById("buscar")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const filtrados =
+    vehiculos.filter(v => {
+
+      const texto =
+        `${v.marca || ""}
+         ${v.modelo || ""}
+         ${v.anio || ""}`
+        .toLowerCase();
+
+      return texto.includes(search);
+    });
+
+
+  if(!filtrados.length){
+
+    list.innerHTML =
+      '<div class="empty">No hay vehículos para mostrar.</div>';
+
+    return;
+  }
+
+
+  list.innerHTML =
+    filtrados.map(v => {
+
+      const imagen =
+        v.imagen ||
+        (Array.isArray(v.imagenes)
+          ? v.imagenes[0]
+          : "") ||
+        "https://via.placeholder.com/800x500?text=Alpalisa";
+
+
+      let tags = "";
+
+      if(v.destacado)
+        tags += '<span class="tag red">⭐ Destacado</span>';
+
+      if(v.oferta)
+        tags += '<span class="tag red">🔥 Oferta</span>';
+
+      if(v.permuta)
+        tags += '<span class="tag">🔄 Permuta</span>';
+
+      if(v.consignacion)
+        tags += '<span class="tag">📋 Consignación</span>';
+
+      if(v.financiado)
+        tags += '<span class="tag">💰 Financiación</span>';
+
+      if(v.apto_credito)
+        tags += '<span class="tag">💳 Crédito</span>';
+
+      if(v.vendido)
+        tags += '<span class="tag red">❌ Vendido</span>';
+
+
+      return `
+
+        <article class="vehicle">
+
+          <img
+            src="${escapeHtml(imagen)}"
+            alt="${escapeHtml(v.marca || "")}"
+            onerror="this.src='https://via.placeholder.com/800x500?text=Alpalisa'"
+          >
+
+          <div class="vehicle-body">
+
+            <div class="vehicle-title">
+              ${escapeHtml(v.marca || "")}
+              ${escapeHtml(v.modelo || "")}
+            </div>
+
+            <div class="vehicle-meta">
+              ${v.anio || "—"} ·
+              ${Number(v.kilometros || 0).toLocaleString("es-AR")} km
+            </div>
+
+            <div class="price">
+              ${formatearPrecio(v.precio)}
+            </div>
+
+            <div class="tags">
+              ${tags}
+            </div>
+
+            <div class="vehicle-actions">
+
+              <button
+                class="btn"
+                onclick="editarVehiculo(${v.id})">
+                ✏️ Editar
+              </button>
+
+              <button
+                class="btn"
+                onclick="eliminarVehiculo(${v.id})">
+                🗑️ Eliminar
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+}
+
+
+/* ============================================================
+   GUARDAR
+============================================================ */
+
+async function guardarVehiculo(){
+
+  const id =
+    document.getElementById("vehicleId").value;
+
+  const marca =
+    document.getElementById("marca").value.trim();
+
+  const modelo =
+    document.getElementById("modelo").value.trim();
+
+  if(!marca || !modelo){
+
+    mostrarMensaje(
+      "Marca y modelo son obligatorios.",
+      true
+    );
+
+    return;
+  }
+
+
+  const payload = {
+
+    marca,
+
+    modelo,
+
+    anio:
+      numeroONull("anio"),
+
+    kilometros:
+      numeroONull("kilometros") || 0,
+
+    precio:
+      numeroONull("precio"),
+
+    combustible:
+      valor("combustible"),
+
+    transmision:
+      valor("transmision"),
+
+    imagen:
+      valor("imagen"),
+
+    descripcion:
+      valor("descripcion"),
+
+    apto_credito:
+      checked("apto_credito"),
+
+    financiado:
+      checked("financiado"),
+
+    consignacion:
+      checked("consignacion"),
+
+    permuta:
+      checked("permuta"),
+
+    entrega:
+      checked("entrega"),
+
+    cuotas:
+      valor("cuotas"),
+
+    destacado:
+      checked("destacado"),
+
+    oferta:
+      checked("oferta"),
+
+    vendido:
+      checked("vendido")
+  };
+
+
+  let result;
+
+
+  if(id){
+
+    result =
+      await supabaseClient
+        .from("vehiculos")
+        .update(payload)
+        .eq("id",id);
+
+  }else{
+
+    result =
+      await supabaseClient
+        .from("vehiculos")
+        .insert(payload);
+
+  }
+
+
+  if(result.error){
+
+    mostrarMensaje(
+      "Error: " + result.error.message,
+      true
+    );
+
+    return;
+  }
+
+
+  mostrarMensaje(
+    id
+      ? "✅ Vehículo actualizado."
+      : "✅ Vehículo agregado."
+  );
+
+  nuevoVehiculo();
+
+  await cargarVehiculos();
+}
+
+
+/* ============================================================
+   EDITAR
+============================================================ */
+
+function editarVehiculo(id){
+
+  const v =
+    vehiculos.find(x => String(x.id) === String(id));
+
+  if(!v) return;
+
+
+  document.getElementById("vehicleId").value =
+    v.id;
+
+  document.getElementById("formTitle").textContent =
+    "Editar vehículo";
+
+
+  setValue("marca",v.marca);
+  setValue("modelo",v.modelo);
+  setValue("anio",v.anio);
+  setValue("kilometros",v.kilometros);
+  setValue("precio",v.precio);
+  setValue("combustible",v.combustible);
+  setValue("transmision",v.transmision);
+  setValue("cuotas",v.cuotas);
+  setValue("descripcion",v.descripcion);
+  setValue("imagen",v.imagen);
+
+
+  setChecked("apto_credito",v.apto_credito);
+  setChecked("financiado",v.financiado);
+  setChecked("consignacion",v.consignacion);
+  setChecked("permuta",v.permuta);
+  setChecked("entrega",v.entrega);
+  setChecked("destacado",v.destacado);
+  setChecked("oferta",v.oferta);
+  setChecked("vendido",v.vendido);
+
+
+  document
+    .getElementById("formPanel")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+}
+
+
+/* ============================================================
+   NUEVO
+============================================================ */
+
+function nuevoVehiculo(){
+
+  document.getElementById("vehicleId").value = "";
+
+  document.getElementById("formTitle").textContent =
+    "Agregar vehículo";
+
+  [
+    "marca",
+    "modelo",
+    "anio",
+    "kilometros",
+    "precio",
+    "cuotas",
+    "descripcion",
+    "imagen"
+  ].forEach(id => setValue(id,""));
+
+
+  [
+    "apto_credito",
+    "financiado",
+    "consignacion",
+    "permuta",
+    "entrega",
+    "destacado",
+    "oferta",
+    "vendido"
+  ].forEach(id => setChecked(id,false));
+
+
+  document.getElementById("combustible").value = "";
+  document.getElementById("transmision").value = "";
+}
+
+
+/* ============================================================
+   ELIMINAR
+============================================================ */
+
+async function eliminarVehiculo(id){
+
+  const v =
+    vehiculos.find(x => String(x.id) === String(id));
+
+  if(!v) return;
+
+
+  const confirmar =
+    confirm(
+      `¿Eliminar ${v.marca || ""} ${v.modelo || ""}?`
+    );
+
+  if(!confirmar) return;
+
+
+  const {error} =
+    await supabaseClient
+      .from("vehiculos")
+      .delete()
+      .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "No se pudo eliminar: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  await cargarVehiculos();
+}
+
+
+/* ============================================================
+   IA
+============================================================ */
+
+function generarDescripcionIA(){
+
+  const marca =
+    valor("marca");
+
+  const modelo =
+    valor("modelo");
+
+  const anio =
+    valor("anio");
+
+  const km =
+    valor("kilometros");
+
+  const combustible =
+    valor("combustible");
+
+  const transmision =
+    valor("transmision");
+
+
+  if(!marca || !modelo){
+
+    mostrarMensaje(
+      "Primero completá marca y modelo.",
+      true
+    );
+
+    return;
+  }
+
+
+  /*
+    IMPORTANTE:
+    Acá NO hacemos una llamada directa a una API
+    de IA porque una API key puesta en este HTML
+    quedaría expuesta públicamente.
+
+    El botón queda preparado para conectar
+    posteriormente con el backend seguro de IA.
+  */
+
+  const texto =
+`${marca} ${modelo} ${anio ? "año " + anio : ""}
+${km ? "con " + Number(km).toLocaleString("es-AR") + " km" : ""}
+${combustible ? combustible : ""}
+${transmision ? "transmisión " + transmision : ""}`;
+
+  document.getElementById("descripcion").value =
+`🚘 ${texto.trim()}
+
+Excelente oportunidad en Alpalisa Automotores.
+
+Vehículo seleccionado y preparado para su publicación.
+
+📲 Consultas y financiación:
+WhatsApp 3875497911`;
+
+  mostrarMensaje(
+    "✨ Descripción preparada. La IA PRO real se conectará mediante backend seguro."
+  );
+}
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function valor(id){
+  return document.getElementById(id).value.trim();
+}
+
+function setValue(id,value){
+  document.getElementById(id).value =
+    value == null ? "" : value;
+}
+
+function checked(id){
+  return document.getElementById(id).checked;
+}
+
+function setChecked(id,value){
+  document.getElementById(id).checked =
+    Boolean(value);
+}
+
+function numeroONull(id){
+
+  const value =
+    document.getElementById(id).value;
+
+  if(value === "") return null;
+
+  return Number(value);
+}
+
+function formatearPrecio(precio){
+
+  if(precio === null || precio === undefined || precio === "")
+    return "Consultar precio";
+
+  return "$ " +
+    Number(precio).toLocaleString("es-AR");
+}
+
+function mostrarMensaje(texto,error=false){
+
+  const el =
+    document.getElementById("formMessage");
+
+  el.textContent = texto;
+
+  el.style.color =
+    error ? "#ff5b5b" : "#75e38b";
+}
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* ============================================================
+   ARRANQUE
+============================================================ */
+
+supabaseClient.auth.onAuthStateChange(
+  (event,session) => {
+
+    if(session){
+
+      mostrarApp();
+
+    }else{
+
+      document.getElementById("login").style.display =
+        "flex";
+
+      document.getElementById("app").style.display =
+        "none";
+    }
+  }
+);
+
+
+comprobarSesion();
+
+</script>
+
+</body>
+</html>
