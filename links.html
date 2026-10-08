@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+
+  <title>Alpalisa Automotores</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(190,0,0,.25), transparent 35%),
+        linear-gradient(145deg, #050505, #111111);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px 15px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #d40000;
+      box-shadow: 0 0 30px rgba(212,0,0,.35);
+      margin-bottom: 18px;
+      background: #111;
+    }
+
+    h1 {
+      font-size: 29px;
+      font-weight: 900;
+      letter-spacing: .5px;
+      margin-bottom: 7px;
+    }
+
+    .subtitle {
+      color: #bdbdbd;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 62px;
+      margin: 13px 0;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+      transition: .2s ease;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,.3);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+    }
+
+    .vehicles {
+      background: linear-gradient(135deg, #d40000, #8e0000);
+    }
+
+    .whatsapp {
+      background: linear-gradient(135deg, #18c964, #079447);
+    }
+
+    .instagram {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+    }
+
+    .location {
+      background: #181818;
+    }
+
+    .icon {
+      font-size: 25px;
+      margin-right: 12px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 25px;
+      }
+
+      .logo {
+        width: 105px;
+        height: 105px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <!-- LOGO -->
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/Sergiomalespina/Alpalisa-Automotores/main/logo.png"
+      alt="Alpalisa Automotores"
+      onerror="this.style.display='none'"
+    >
+
+    <h1>Alpalisa Automotores</h1>
+
+    <p class="subtitle">
+      Compra · Venta · Permutas · Financiación<br>
+      Salta Capital
+    </p>
+
+    <!-- PÁGINA -->
+    <a
+      class="button vehicles"
+      href="./index.html"
+    >
+      <span class="icon">🚗</span>
+      VER VEHÍCULOS
+    </a>
+
+    <!-- WHATSAPP -->
+    <a
+      class="button whatsapp"
+      href="https://wa.me/543875497911"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="icon">💬</span>
+      WHATSAPP
+    </a>
+
+    <!-- INSTAGRAM -->
+    <a
+      class="button instagram"
+      href="https://www.instagram.com/automoresalpalisa?stkn=cGlhanF2YnhqZDNo"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="icon">📸</span>
+      INSTAGRAM
+    </a>
+
+    <!-- UBICACIÓN -->
+    <div class="button location">
+      <span class="icon">📍</span>
+      SALTA CAPITAL
+    </div>
+
+    <div class="footer">
+      © 2026 Alpalisa Automotores
+    </div>
+
+  </main>
+
+</body>
+</html>
