@@ -314,7 +314,7 @@
       position: fixed;
       right: 20px;
       bottom: 160px;
-      width: 320px;
+      width: 350px;
       max-width: calc(100vw - 40px);
       background: #111;
       border: 1px solid #333;
@@ -341,6 +341,65 @@
       line-height: 1.5;
     }
 
+    .ai-result {
+      margin-top: 12px;
+      background: #191919;
+      border: 1px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .ai-result img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ai-result-content {
+      padding: 12px;
+    }
+
+    .ai-result-title {
+      font-size: 17px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .ai-result-details {
+      color: #999;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .ai-result-price {
+      color: #fff;
+      font-weight: bold;
+      margin-top: 7px;
+    }
+
+    .ai-result .btn {
+      margin-top: 10px;
+    }
+
+    .ai-input-area {
+      padding: 10px;
+      border-top: 1px solid #292929;
+      display: flex;
+      gap: 8px;
+    }
+
+    .ai-input-area input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+    }
+
+    .ai-send {
+      width: auto;
+      padding: 12px 16px;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -365,10 +424,6 @@
       border-radius: 18px;
       overflow: hidden;
     }
-
-    /* ================================
-       GALERÍA DEL VEHÍCULO
-    ================================ */
 
     .modal-gallery {
       position: relative;
@@ -478,7 +533,6 @@
     }
 
     @media (max-width: 900px) {
-
       .vehicles {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -493,7 +547,6 @@
     }
 
     @media (max-width: 600px) {
-
       .vehicles {
         grid-template-columns: 1fr;
       }
@@ -676,23 +729,47 @@
     🤖 Asistente Alpalisa
   </div>
 
-  <div class="ai-body">
+  <div
+    id="aiMessages"
+    class="ai-body"
+    style="
+      max-height:320px;
+      overflow-y:auto;
+    "
+  >
 
-    Hola 👋
+    <div>
+      Hola 👋
+      <br><br>
+      Soy el asistente de Alpalisa Automotores.
+      <br><br>
+      Preguntame por cualquier vehículo publicado.
+      <br><br>
+      Por ejemplo:
+      <b>“¿Qué Toyota tienen?”</b>
+    </div>
 
-    <br><br>
+  </div>
 
-    Soy el asistente de Alpalisa Automotores.
+  <div class="ai-input-area">
 
-    <br><br>
+    <input
+      id="aiInput"
+      type="text"
+      placeholder="Preguntá por un auto..."
+      onkeydown="
+        if(event.key === 'Enter'){
+          sendAIMessage();
+        }
+      "
+    >
 
-    Puedo ayudarte con vehículos,
-    financiación, permutas y consignación.
-
-    <br><br>
-
-    Para atención personalizada,
-    escribinos por WhatsApp.
+    <button
+      onclick="sendAIMessage()"
+      class="btn btn-red ai-send"
+    >
+      ➤
+    </button>
 
   </div>
 
@@ -797,11 +874,6 @@ const supabaseClient =
 
 let vehicles = [];
 
-
-/* ================================
-   GALERÍA
-================================ */
-
 let currentImages = [];
 
 let currentImageIndex = 0;
@@ -860,15 +932,6 @@ async function loadVehicles() {
 
       return;
     }
-
-    /*
-      IMPORTANTE:
-      NO FILTRAMOS vendido.
-
-      Todo vehículo que exista
-      en public.vehiculos
-      será mostrado.
-    */
 
     vehicles = data || [];
 
@@ -1892,7 +1955,447 @@ function toggleAI() {
     .classList
     .toggle("active");
 
+  setTimeout(
+    () => {
+
+      const input =
+        document.getElementById(
+          "aiInput"
+        );
+
+      if (input) {
+        input.focus();
+      }
+
+    },
+    100
+  );
+
 }
+
+
+/* ================================
+   IA - ENVIAR PREGUNTA
+================================ */
+
+function sendAIMessage() {
+
+  const input =
+    document.getElementById(
+      "aiInput"
+    );
+
+  const messages =
+    document.getElementById(
+      "aiMessages"
+    );
+
+  const question =
+    input.value.trim();
+
+  if (!question) {
+    return;
+  }
+
+  messages.innerHTML += `
+
+    <div
+      style="
+        margin-top:12px;
+        text-align:right;
+      "
+    >
+
+      <span
+        style="
+          display:inline-block;
+          background:#e00000;
+          padding:9px 12px;
+          border-radius:12px;
+          max-width:90%;
+        "
+      >
+        ${escapeHtml(question)}
+      </span>
+
+    </div>
+
+  `;
+
+  input.value = "";
+
+  const normalized =
+    question
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(
+        /[\u0300-\u036f]/g,
+        ""
+      );
+
+  const results =
+    searchVehiclesForAI(
+      normalized
+    );
+
+  if (
+    results.length === 0
+  ) {
+
+    messages.innerHTML += `
+
+      <div
+        style="
+          margin-top:12px;
+          color:#ccc;
+        "
+      >
+
+        No encontré vehículos que coincidan
+        con tu búsqueda. 🚗
+
+        <br><br>
+
+        Probá escribiendo una marca,
+        modelo o año.
+
+        <br><br>
+
+        Por ejemplo:
+        <br>
+        • Toyota
+        <br>
+        • Chevrolet 2020
+        <br>
+        • Ford
+        <br>
+        • 2022
+
+      </div>
+
+    `;
+
+  } else {
+
+    messages.innerHTML += `
+
+      <div
+        style="
+          margin-top:12px;
+          color:#ccc;
+        "
+      >
+
+        Encontré
+        <b>${results.length}</b>
+        vehículo${results.length > 1 ? "s" : ""}:
+
+      </div>
+
+    `;
+
+    results.forEach(
+      vehicle => {
+
+        const title =
+          (
+            (vehicle.marca || "") +
+            " " +
+            (vehicle.modelo || "")
+          )
+          .trim();
+
+        let price =
+          "Consultar precio";
+
+        if (
+          vehicle.precio !== null &&
+          vehicle.precio !== undefined &&
+          vehicle.precio !== ""
+        ) {
+
+          price =
+            "$ " +
+            Number(
+              vehicle.precio
+            ).toLocaleString(
+              "es-AR"
+            );
+
+        }
+
+        let image =
+          vehicle.imagen || "";
+
+        if (
+          !image &&
+          Array.isArray(
+            vehicle.imagenes
+          ) &&
+          vehicle.imagenes.length
+        ) {
+
+          image =
+            vehicle.imagenes[0];
+
+        }
+
+        const details =
+          [
+
+            vehicle.anio
+              ? vehicle.anio
+              : "",
+
+            vehicle.kilometros !== null &&
+            vehicle.kilometros !== undefined
+              ? Number(
+                  vehicle.kilometros
+                ).toLocaleString(
+                  "es-AR"
+                ) + " km"
+              : "",
+
+            vehicle.combustible ||
+              "",
+
+            vehicle.transmision ||
+              ""
+
+          ]
+          .filter(Boolean)
+          .join(" · ");
+
+        messages.innerHTML += `
+
+          <div
+            class="ai-result"
+          >
+
+            ${
+              image
+
+              ?
+
+              `
+                <img
+                  src="${escapeHtml(image)}"
+                  alt="${escapeHtml(title)}"
+                >
+              `
+
+              :
+
+              ""
+            }
+
+            <div
+              class="ai-result-content"
+            >
+
+              <div
+                class="ai-result-title"
+              >
+                ${escapeHtml(title)}
+              </div>
+
+              <div
+                class="ai-result-details"
+              >
+                ${escapeHtml(details)}
+              </div>
+
+              <div
+                class="ai-result-price"
+              >
+                ${price}
+              </div>
+
+              <button
+                class="btn btn-red"
+                onclick="
+                  openVehicle(${vehicle.id});
+                  toggleAI();
+                "
+              >
+                👁️ Ver vehículo
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    );
+
+  }
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+/* ================================
+   IA - BUSCAR VEHÍCULOS
+================================ */
+
+function searchVehiclesForAI(
+  question
+) {
+
+  if (
+    !vehicles ||
+    vehicles.length === 0
+  ) {
+
+    return [];
+
+  }
+
+  const stopWords = [
+
+    "que",
+    "qué",
+    "autos",
+    "auto",
+    "vehiculos",
+    "vehículo",
+    "vehiculo",
+    "tienen",
+    "tiene",
+    "hay",
+    "quiero",
+    "busco",
+    "buscar",
+    "un",
+    "una",
+    "el",
+    "la",
+    "los",
+    "las",
+    "me",
+    "mostrame",
+    "mostrar",
+    "mostra",
+    "por",
+    "favor",
+    "de",
+    "del",
+    "en",
+    "con",
+    "para",
+    "tenes",
+    "tenés",
+    "disponible",
+    "disponibles",
+    "disponibilidad",
+    "alguno",
+    "alguna",
+    "algun",
+    "algún"
+
+  ];
+
+  const words =
+    question
+      .split(/\s+/)
+      .map(
+        word =>
+          word
+            .replace(
+              /[^a-z0-9áéíóúüñ]/gi,
+              ""
+            )
+      )
+      .filter(
+        word =>
+          word.length > 1 &&
+          !stopWords.includes(word)
+      );
+
+  if (
+    words.length === 0
+  ) {
+
+    return vehicles.slice(
+      0,
+      6
+    );
+
+  }
+
+  const results =
+    vehicles.filter(
+      vehicle => {
+
+        const searchable = (
+
+          (vehicle.marca || "") +
+          " " +
+          (vehicle.modelo || "") +
+          " " +
+          (vehicle.anio || "") +
+          " " +
+          (vehicle.combustible || "") +
+          " " +
+          (vehicle.transmision || "")
+
+        )
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+          /[\u0300-\u036f]/g,
+          ""
+        );
+
+        const normalizedWords =
+          words.map(
+            word =>
+              word
+                .normalize("NFD")
+                .replace(
+                  /[\u0300-\u036f]/g,
+                  ""
+                )
+          );
+
+        return normalizedWords.some(
+          word =>
+            searchable.includes(word)
+        );
+
+      }
+    );
+
+  return results.slice(
+    0,
+    6
+  );
+
+}
+
+
+/* ================================
+   ENTER EN LA IA
+================================ */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeModal();
+
+    }
+
+  }
+);
 
 
 /* ================================
