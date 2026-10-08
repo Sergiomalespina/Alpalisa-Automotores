@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Alpalisa Automotores | Salta Capital</title>
+  <meta name="description" content="Alpalisa Automotores - Compra, venta, financiación, consignación y permutas de vehículos en Salta Capital.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8,8,8,.97);
+      border-bottom: 1px solid #292929;
+      padding: 14px 20px;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      font-size: 23px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .brand span {
+      color: #e00000;
+    }
+
+    .location {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .hero {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 20px;
+      background:
+        linear-gradient(rgba(0,0,0,.73), rgba(0,0,0,.9)),
+        radial-gradient(circle at center, #450000, #090909 65%);
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 72px);
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: #e00000;
+    }
+
+    .hero p {
+      color: #ddd;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-red {
+      background: #e00000;
+      color: #fff;
+    }
+
+    .btn-dark {
+      background: #1c1c1c;
+      color: #fff;
+      border: 1px solid #333;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 45px 20px;
+    }
+
+    .section-title {
+      margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .section-title p {
+      color: #999;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .filters input,
+    .filters select {
+      width: 100%;
+      background: #151515;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 9px;
+      padding: 13px;
+      outline: none;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #e00000;
+    }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 20px;
+    }
+
+    .car-card {
+      overflow: hidden;
+      background: #141414;
+      border: 1px solid #292929;
+      border-radius: 15px;
+      transition: .2s;
+    }
+
+    .car-card:hover {
+      transform: translateY(-3px);
+      border-color: #e00000;
+    }
+
+    .car-image {
+      position: relative;
+      width: 100%;
+      height: 210px;
+      background: #222;
+    }
+
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #e00000;
+      color: #fff;
+      padding: 6px 9px;
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .badge.offer {
+      background: #168c3b;
+    }
+
+    .car-body {
+      padding: 17px;
+    }
+
+    .car-body h3 {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .car-model {
+      color: #aaa;
+      margin-bottom: 13px;
+    }
+
+    .specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .spec {
+      background: #202020;
+      color: #ccc;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    .price {
+      font-size: 23px;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+
+    .car-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .car-actions button {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 8px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .btn-details {
+      background: #292929;
+      color: #fff;
+    }
+
+    .btn-whatsapp {
+      background: #19a94a;
+      color: #fff;
+    }
+
+    .empty {
+      text-align: center;
+      color: #999;
+      padding: 50px 20px;
+      border: 1px dashed #333;
+      border-radius: 12px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .service {
+      background: #151515;
+      border: 1px solid #292929;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .service strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .service p {
+      color: #999;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    footer {
+      background: #070707;
+      border-top: 1px solid #222;
+      text-align: center;
+      padding: 35px 20px 100px;
+      color: #888;
+    }
+
+    footer strong {
+      color: #fff;
+    }
+
+    /* CHAT IA */
+
+    .ai-button {
+      position: fixed;
+      right: 20px;
+      bottom: 85px;
+      z-index: 2000;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: none;
+      background: #e00000;
+      color: white;
+      font-size: 27px;
+      cursor: pointer;
+      box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    }
+
+    .ai-window {
+      display: none;
+      position: fixed;
+      right: 20px;
+      bottom: 160px;
+      z-index: 1999;
+      width: min(370px, calc(100vw - 30px));
+      height: 500px;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 17px;
+      box-shadow: 0 15px 50px rgba(0,0,0,.7);
+      overflow: hidden;
+    }
+
+    .ai-window.open {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-header {
+      background: #e00000;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-header strong {
+      font-size: 16px;
+    }
+
+    .ai-close {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .ai-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .message {
+      max-width: 85%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      font-size: 14px;
+    }
+
+    .message.bot {
+      background: #242424;
+      color: #eee;
+    }
+
+    .message.user {
+      background: #e00000;
+      margin-left: auto;
+    }
+
+    .ai-input {
+      display: flex;
+      gap: 7px;
+      padding: 10px;
+      border-top: 1px solid #292929;
+      background: #151515;
+    }
+
+    .ai-input input {
+      flex: 1;
+      min-width: 0;
+      background: #242424;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 9px;
+      padding: 11px;
+      outline: none;
+    }
+
+    .ai-input button {
+      width: 45px;
+      border: none;
+      border-radius: 9px;
+      background: #e00000;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* WHATSAPP */
+
+    .whatsapp-float {
+      position: fixed;
+      right: 20px;
+      bottom: 15px;
+      z-index: 2000;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #19a94a;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 29px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.5);
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(0,0,0,.85);
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      width: min(800px, 100%);
+      background: #121212;
+      border: 1px solid #333;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .modal-body h2 {
+      font-size: 29px;
+      margin-bottom: 5px;
+    }
+
+    .modal-description {
+      color: #bbb;
+      line-height: 1.6;
+      margin: 18px 0;
+    }
+
+    .modal-close {
+      float: right;
+      background: #292929;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #aaa;
+    }
+
+    @media(max-width:600px) {
+      .location {
+        display: none;
+      }
+
+      .hero {
+        min-height: 350px;
+        padding: 50px 18px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .car-image {
+        height: 220px;
+      }
+
+      .ai-window {
+        right: 15px;
+        bottom: 155px;
+      }
+
+      .modal-image {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      ALPALISA <span>AUTOMOTORES</span>
+    </div>
+
+    <div class="location">
+      📍 Salta Capital
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Encontrá tu próximo <span>auto</span></h1>
+
+    <p>
+      Compra y venta de vehículos en Salta Capital.
+      Financiación, consignación, permutas y ofertas.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn btn-red" onclick="scrollToInventory()">
+        🚗 Ver vehículos
+      </button>
+
+      <button class="btn btn-dark" onclick="openAI()">
+        🤖 Consultar con IA
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="inventario">
+
+  <div class="section-title">
+    <h2>Vehículos disponibles</h2>
+    <p>Elegí el vehículo que estás buscando.</p>
+  </div>
+
+  <div class="filters">
+
+    <input
+      id="search"
+      type="text"
+      placeholder="🔎 Buscar marca o modelo..."
+    >
+
+    <select id="brandFilter">
+      <option value="">Todas las marcas</option>
+    </select>
+
+    <select id="yearFilter">
+      <option value="">Todos los años</option>
+    </select>
+
+  </div>
+
+  <div id="carsContainer">
+    <div class="loading">
+      Cargando vehículos...
+    </div>
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>¿Qué ofrecemos?</h2>
+    <p>Todo lo que necesitás para comprar o vender tu vehículo.</p>
+  </div>
+
+  <div class="services">
+
+    <div class="service">
+      <strong>💳 Apto crédito</strong>
+      <p>Consultá por opciones de financiación para tu próximo vehículo.</p>
+    </div>
+
+    <div class="service">
+      <strong>📆 Financiación y cuotas</strong>
+      <p>Opciones de financiación según el vehículo y tu situación.</p>
+    </div>
+
+    <div class="service">
+      <strong>🔄 Permutas</strong>
+      <p>Tomamos tu vehículo como parte de pago.</p>
+    </div>
+
+    <div class="service">
+      <strong>🤝 Consignación</strong>
+      <p>Vendé tu vehículo con el respaldo de Alpalisa Automotores.</p>
+    </div>
+
+    <div class="service">
+      <strong>🔥 Ofertas</strong>
+      <p>Consultá nuestros vehículos con precios especiales.</p>
+    </div>
+
+    <div class="service">
+      <strong>⭐ Destacados</strong>
+      <p>Conocé nuestros vehículos seleccionados.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  <strong>ALPALISA AUTOMOTORES</strong>
+  <br><br>
+  Salta Capital
+  <br><br>
+  Compra · Venta · Financiación · Permutas · Consignación
+</footer>
+
+
+<!-- CHAT IA -->
+
+<button
+  class="ai-button"
+  onclick="toggleAI()"
+  aria-label="Abrir asistente"
+>
+  🤖
+</button>
+
+<div class="ai-window" id="aiWindow">
+
+  <div class="ai-header">
+    <strong>🤖 Asistente Alpalisa</strong>
+
+    <button class="ai-close" onclick="closeAI()">
+      ×
+    </button>
+  </div>
+
+  <div class="ai-messages" id="aiMessages">
+
+    <div class="message bot">
+      ¡Hola! 👋 Soy el asistente de Alpalisa Automotores.
+      <br><br>
+      Puedo ayudarte a buscar vehículos, consultar financiación,
+      permutas, consignaciones y más.
+    </div>
+
+  </div>
+
+  <div class="ai-input">
+
+    <input
+      id="aiInput"
+      type="text"
+      placeholder="Escribí tu consulta..."
+      autocomplete="off"
+    >
+
+    <button onclick="sendAIMessage()">
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- WHATSAPP GENERAL -->
+
+<a
+  id="whatsappFloat"
+  class="whatsapp-float"
+  href="https://wa.me/543875497911?text=Hola%20Alpalisa%20Automotores%2C%20quiero%20hacer%20una%20consulta."
+  target="_blank"
+  rel="noopener"
+  aria-label="WhatsApp"
+>
+  💬
+</a>
+
+
+<!-- MODAL VEHÍCULO -->
+
+<div class="modal" id="carModal">
+
+  <div class="modal-content">
+
+    <img
+      id="modalImage"
+      class="modal-image"
+      src=""
+      alt="Vehículo"
+    >
+
+    <div class="modal-body">
+
+      <button
+        class="modal-close"
+        onclick="closeModal()"
+      >
+        ✕
+      </button>
+
+      <h2 id="modalTitle"></h2>
+
+      <div id="modalSpecs" class="specs"></div>
+
+      <div id="modalPrice" class="price"></div>
+
+      <p
+        id="modalDescription"
+        class="modal-description"
+      ></p>
+
+      <button
+        id="modalWhatsapp"
+        class="btn btn-red"
+        style="width:100%;"
+      >
+        💬 Consultar por WhatsApp
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+  "https://eouftihvjycdloxyhnwc.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_Bv76u7MQNLlLqc5VcM0tHA_cHoyxT5f";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+const WHATSAPP =
+  "543875497911";
+
+let vehicles = [];
+let currentVehicle = null;
+
+
+/* =========================
+   CARGAR VEHÍCULOS
+========================= */
+
+async function loadVehicles() {
+
+  const container =
+    document.getElementById("carsContainer");
+
+  container.innerHTML =
+    '<div class="loading">Cargando vehículos...</div>';
+
+  const { data, error } =
+    await supabaseClient
+      .from("vehiculos")
+      .select("*")
+      .eq("vendido", false)
+      .order("destacado", { ascending: false })
+      .order("created_at", { ascending: false });
+
+  if (error) {
+
+    console.error(error);
+
+    container.innerHTML = `
+      <div class="empty">
+        No se pudieron cargar los vehículos.
+        <br><br>
+        Intentá actualizar la página.
+      </div>
+    `;
+
+    return;
+  }
+
+  vehicles = data || [];
+
+  populateFilters();
+
+  renderVehicles(vehicles);
+}
+
+
+/* =========================
+   FILTROS
+========================= */
+
+function populateFilters() {
+
+  const brandSelect =
+    document.getElementById("brandFilter");
+
+  const yearSelect =
+    document.getElementById("yearFilter");
+
+  const brands =
+    [...new Set(
+      vehicles
+        .map(v => v.marca)
+        .filter(Boolean)
+    )]
+    .sort();
+
+  const years =
+    [...new Set(
+      vehicles
+        .map(v => v.anio)
+        .filter(Boolean)
+    )]
+    .sort((a,b) => b-a);
+
+  brandSelect.innerHTML =
+    '<option value="">Todas las marcas</option>';
+
+  brands.forEach(brand => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = brand;
+    option.textContent = brand;
+
+    brandSelect.appendChild(option);
+
+  });
+
+  yearSelect.innerHTML =
+    '<option value="">Todos los años</option>';
+
+  years.forEach(year => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = year;
+    option.textContent = year;
+
+    yearSelect.appendChild(option);
+
+  });
+}
+
+
+function applyFilters() {
+
+  const search =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const brand =
+    document.getElementById("brandFilter").value;
+
+  const year =
+    document.getElementById("yearFilter").value;
+
+  const filtered =
+    vehicles.filter(vehicle => {
+
+      const text =
+        `${vehicle.marca || ""} ${vehicle.modelo || ""}`
+          .toLowerCase();
+
+      const matchesSearch =
+        !search || text.includes(search);
+
+      const matchesBrand =
+        !brand || vehicle.marca === brand;
+
+      const matchesYear =
+        !year || String(vehicle.anio) === String(year);
+
+      return (
+        matchesSearch &&
+        matchesBrand &&
+        matchesYear
+      );
+
+    });
+
+  renderVehicles(filtered);
+}
+
+
+/* =========================
+   VEHÍCULOS
+========================= */
+
+function renderVehicles(list) {
+
+  const container =
+    document.getElementById("carsContainer");
+
+  if (!list.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        No encontramos vehículos con esos filtros.
+      </div>
+    `;
+
+    return;
+  }
+
+  const grid =
+    document.createElement("div");
+
+  grid.className = "cars-grid";
+
+  list.forEach(vehicle => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "car-card";
+
+    const image =
+      vehicle.imagen ||
+      (
+        vehicle.imagenes &&
+        vehicle.imagenes.length
+          ? vehicle.imagenes[0]
+          : ""
+      );
+
+    const price =
+      formatPrice(vehicle.precio);
+
+    const badge =
+      vehicle.oferta
+        ? `<div class="badge offer">🔥 OFERTA</div>`
+        : vehicle.destacado
+          ? `<div class="badge">⭐ DESTACADO</div>`
+          : "";
+
+    card.innerHTML = `
+
+      <div class="car-image">
+
+        ${
+          image
+            ? `<img
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(vehicle.marca || "")} ${escapeHtml(vehicle.modelo || "")}"
+                loading="lazy"
+              >`
+            : `<div style="
+                width:100%;
+                height:100%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#777;
+              ">
+                Sin imagen
+              </div>`
+        }
+
+        ${badge}
+
+      </div>
+
+      <div class="car-body">
+
+        <h3>
+          ${escapeHtml(vehicle.marca || "")}
+        </h3>
+
+        <div class="car-model">
+          ${escapeHtml(vehicle.modelo || "")}
+        </div>
+
+        <div class="specs">
+
+          ${
+            vehicle.anio
+              ? `<span class="spec">📅 ${vehicle.anio}</span>`
+              : ""
+          }
+
+          ${
+            vehicle.kilometros != null
+              ? `<span class="spec">🛣️ ${formatNumber(vehicle.kilometros)} km</span>`
+              : ""
+          }
+
+          ${
+            vehicle.combustible
+              ? `<span class="spec">⛽ ${escapeHtml(vehicle.combustible)}</span>`
+              : ""
+          }
+
+          ${
+            vehicle.transmision
+              ? `<span class="spec">⚙️ ${escapeHtml(vehicle.transmision)}</span>`
+              : ""
+          }
+
+        </div>
+
+        <div class="price">
+          ${price}
+        </div>
+
+        <div class="car-actions">
+
+          <button
+            class="btn-details"
+            onclick="openVehicle(${vehicle.id})"
+          >
+            Ver vehículo
+          </button>
+
+          <button
+            class="btn-whatsapp"
+            onclick="whatsappVehicle(${vehicle.id})"
+          >
+            💬 WhatsApp
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+  container.innerHTML = "";
+  container.appendChild(grid);
+}
+
+
+/* =========================
+   DETALLE
+========================= */
+
+function openVehicle(id) {
+
+  const vehicle =
+    vehicles.find(v => Number(v.id) === Number(id));
+
+  if (!vehicle) return;
+
+  currentVehicle = vehicle;
+
+  const image =
+    vehicle.imagen ||
+    (
+      vehicle.imagenes &&
+      vehicle.imagenes.length
+        ? vehicle.imagenes[0]
+        : ""
+    );
+
+  document.getElementById("modalImage").src =
+    image || "";
+
+  document.getElementById("modalTitle").textContent =
+    `${vehicle.marca || ""} ${vehicle.modelo || ""}`;
+
+  document.getElementById("modalPrice").textContent =
+    formatPrice(vehicle.precio);
+
+  document.getElementById("modalDescription").textContent =
+    vehicle.descripcion ||
+    "Consultá todos los detalles de este vehículo con Alpalisa Automotores.";
+
+  document.getElementById("modalSpecs").innerHTML = `
+
+    ${
+      vehicle.anio
+        ? `<span class="spec">📅 ${vehicle.anio}</span>`
+        : ""
+    }
+
+    ${
+      vehicle.kilometros != null
+        ? `<span class="spec">🛣️ ${formatNumber(vehicle.kilometros)} km</span>`
+        : ""
+    }
+
+    ${
+      vehicle.combustible
+        ? `<span class="spec">⛽ ${escapeHtml(vehicle.combustible)}</span>`
+        : ""
+    }
+
+    ${
+      vehicle.transmision
+        ? `<span class="spec">⚙️ ${escapeHtml(vehicle.transmision)}</span>`
+        : ""
+    }
+
+    ${
+      vehicle.apto_credito
+        ? `<span class="spec">💳 Apto crédito</span>`
+        : ""
+    }
+
+    ${
+      vehicle.financiado
+        ? `<span class="spec">📆 Financiación</span>`
+        : ""
+    }
+
+    ${
+      vehicle.permuta
+        ? `<span class="spec">🔄 Permuta</span>`
+        : ""
+    }
+
+    ${
+      vehicle.consignacion
+        ? `<span class="spec">🤝 Consignación</span>`
+        : ""
+    }
+
+  `;
+
+  document.getElementById("modalWhatsapp").onclick =
+    () => whatsappVehicle(vehicle.id);
+
+  document
+    .getElementById("carModal")
+    .classList.add("open");
+
+  trackEvent(
+    "vehiculo_visto",
+    vehicle.id
+  );
+}
+
+
+function closeModal() {
+
+  document
+    .getElementById("carModal")
+    .classList.remove("open");
+
+}
+
+
+/* =========================
+   WHATSAPP POR VEHÍCULO
+========================= */
+
+function whatsappVehicle(id) {
+
+  const vehicle =
+    vehicles.find(v => Number(v.id) === Number(id));
+
+  if (!vehicle) return;
+
+  const name =
+    `${vehicle.marca || ""} ${vehicle.modelo || ""}`.trim();
+
+  let message =
+    `Hola Alpalisa Automotores 👋%0A%0A` +
+    `Estoy interesado en el ${name}`;
+
+  if (vehicle.anio) {
+    message += ` ${vehicle.anio}`;
+  }
+
+  message +=
+    ` que vi en la página.%0A%0A` +
+    `¿Sigue disponible?`;
+
+  if (vehicle.precio) {
+    message +=
+      `%0APrecio publicado: ${formatPrice(vehicle.precio)}`;
+  }
+
+  trackEvent(
+    "whatsapp_vehiculo",
+    vehicle.id
+  );
+
+  window.open(
+    `https://wa.me/${WHATSAPP}?text=${message}`,
+    "_blank"
+  );
+}
+
+
+/* =========================
+   WHATSAPP GENERAL
+========================= */
+
+document
+  .getElementById("whatsappFloat")
+  .addEventListener("click", () => {
+
+    trackEvent("whatsapp_general");
+
+  });
+
+
+/* =========================
+   ANALYTICS
+========================= */
+
+async function trackEvent(tipo, vehiculoId = null) {
+
+  try {
+
+    await supabaseClient
+      .from("analytics_eventos")
+      .insert({
+        tipo: tipo,
+        vehiculo_id: vehiculoId
+      });
+
+  } catch (error) {
+
+    console.log(
+      "Analytics:",
+      error.message
+    );
+
+  }
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+function toggleAI() {
+
+  const windowAI =
+    document.getElementById("aiWindow");
+
+  windowAI.classList.toggle("open");
+
+  if (windowAI.classList.contains("open")) {
+    trackEvent("chat_ia_abierto");
+
+    setTimeout(() => {
+      document.getElementById("aiInput").focus();
+    }, 100);
+  }
+}
+
+
+function openAI() {
+
+  document
+    .getElementById("aiWindow")
+    .classList.add("open");
+
+  trackEvent("chat_ia_abierto");
+
+  setTimeout(() => {
+    document.getElementById("aiInput").focus();
+  }, 100);
+}
+
+
+function closeAI() {
+
+  document
+    .getElementById("aiWindow")
+    .classList.remove("open");
+
+}
+
+
+function addAIMessage(text, type) {
+
+  const messages =
+    document.getElementById("aiMessages");
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    `message ${type}`;
+
+  div.textContent = text;
+
+  messages.appendChild(div);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+}
+
+
+function sendAIMessage() {
+
+  const input =
+    document.getElementById("aiInput");
+
+  const text =
+    input.value.trim();
+
+  if (!text) return;
+
+  addAIMessage(text, "user");
+
+  input.value = "";
+
+  trackEvent("chat_ia_mensaje");
+
+  setTimeout(() => {
+
+    const answer =
+      generateAssistantAnswer(text);
+
+    addAIMessage(
+      answer,
+      "bot"
+    );
+
+  }, 350);
+}
+
+
+function generateAssistantAnswer(text) {
+
+  const q =
+    text.toLowerCase();
+
+  if (
+    q.includes("precio") ||
+    q.includes("cuanto") ||
+    q.includes("cuánto")
+  ) {
+
+    return "Claro 👍 Podés mirar los precios publicados arriba o decime qué marca/modelo buscás y te ayudo a encontrarlo.";
+
+  }
+
+  if (
+    q.includes("financ") ||
+    q.includes("cuota") ||
+    q.includes("credito") ||
+    q.includes("crédito")
+  ) {
+
+    return "Sí 👍 Alpalisa ofrece opciones de financiación y cuotas en vehículos seleccionados. Para conocer las condiciones exactas, podés consultar directamente por WhatsApp.";
+
+  }
+
+  if (
+    q.includes("permuta") ||
+    q.includes("cambio")
+  ) {
+
+    return "Sí 🔄 trabajamos con permutas. Mandanos los datos de tu vehículo por WhatsApp y te orientamos.";
+
+  }
+
+  if (
+    q.includes("consign")
+  ) {
+
+    return "Sí 🤝 trabajamos con consignación. Podemos ayudarte a publicar y vender tu vehículo.";
+
+  }
+
+  if (
+    q.includes("whatsapp") ||
+    q.includes("contacto") ||
+    q.includes("hablar")
+  ) {
+
+    return "Por supuesto 📲 Podés tocar el botón verde de WhatsApp y hablar directamente con Alpalisa Automotores.";
+
+  }
+
+  if (
+    q.includes("auto") ||
+    q.includes("vehiculo") ||
+    q.includes("vehículo") ||
+    q.includes("busco")
+  ) {
+
+    return `Tenemos ${
+      vehicles.length
+    } vehículo(s) publicado(s) actualmente. Podés revisar el inventario o decirme qué marca, modelo o presupuesto estás buscando.`;
+
+  }
+
+  return "¡Claro! 👋 Puedo ayudarte con vehículos disponibles, precios, financiación, cuotas, permutas y consignación. ¿Qué estás buscando?";
+
+}
+
+
+/* ENTER EN CHAT */
+
+document
+  .getElementById("aiInput")
+  .addEventListener("keydown", function(e) {
+
+    if (e.key === "Enter") {
+      sendAIMessage();
+    }
+
+  });
+
+
+/* =========================
+   UTILIDADES
+========================= */
+
+function formatPrice(value) {
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return "Consultar precio";
+  }
+
+  return new Intl.NumberFormat(
+    "es-AR",
+    {
+      style: "currency",
+      currency: "ARS",
+      maximumFractionDigits: 0
+    }
+  ).format(Number(value));
+
+}
+
+
+function formatNumber(value) {
+
+  return new Intl.NumberFormat(
+    "es-AR"
+  ).format(Number(value || 0));
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function scrollToInventory() {
+
+  document
+    .getElementById("inventario")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+}
+
+
+/* =========================
+   EVENTOS FILTROS
+========================= */
+
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    applyFilters
+  );
+
+document
+  .getElementById("brandFilter")
+  .addEventListener(
+    "change",
+    applyFilters
+  );
+
+document
+  .getElementById("yearFilter")
+  .addEventListener(
+    "change",
+    applyFilters
+  );
+
+
+/* =========================
+   CERRAR MODAL
+========================= */
+
+document
+  .getElementById("carModal")
+  .addEventListener("click", function(e) {
+
+    if (e.target === this) {
+      closeModal();
+    }
+
+  });
+
+
+/* =========================
+   INICIO
+========================= */
+
+loadVehicles();
+
+</script>
+
+</body>
+</html>
