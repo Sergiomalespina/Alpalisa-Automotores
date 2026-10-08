@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Alpalisa Automotores | Salta Capital</title>
-  <meta name="description" content="Alpalisa Automotores - Compra, venta, financiación, consignación y permutas de vehículos en Salta Capital.">
 
   <style>
     * {
@@ -16,12 +15,13 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #0b0b0b;
+      background: #090909;
       color: #fff;
     }
 
     button,
-    input {
+    input,
+    select {
       font-family: inherit;
     }
 
@@ -31,7 +31,7 @@
       z-index: 1000;
       background: rgba(8,8,8,.97);
       border-bottom: 1px solid #292929;
-      padding: 14px 20px;
+      padding: 15px 20px;
     }
 
     .nav {
@@ -40,13 +40,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
     }
 
     .brand {
       font-size: 23px;
       font-weight: 900;
-      color: #fff;
     }
 
     .brand span {
@@ -55,19 +53,19 @@
 
     .location {
       color: #aaa;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .hero {
-      min-height: 400px;
+      min-height: 410px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 70px 20px;
+      padding: 60px 20px;
       background:
-        linear-gradient(rgba(0,0,0,.73), rgba(0,0,0,.9)),
-        radial-gradient(circle at center, #450000, #090909 65%);
+        linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.92)),
+        radial-gradient(circle, #520000, #090909 65%);
     }
 
     .hero-content {
@@ -75,7 +73,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(38px, 7vw, 72px);
+      font-size: clamp(40px, 7vw, 72px);
       font-weight: 900;
       margin-bottom: 15px;
     }
@@ -102,7 +100,6 @@
       border: none;
       border-radius: 10px;
       padding: 14px 22px;
-      font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       transition: .2s;
@@ -280,6 +277,12 @@
       border-radius: 12px;
     }
 
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #aaa;
+    }
+
     .services {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -296,7 +299,6 @@
     .service strong {
       display: block;
       margin-bottom: 8px;
-      font-size: 17px;
     }
 
     .service p {
@@ -317,7 +319,7 @@
       color: #fff;
     }
 
-    /* CHAT IA */
+    /* IA */
 
     .ai-button {
       position: fixed;
@@ -363,10 +365,6 @@
       align-items: center;
     }
 
-    .ai-header strong {
-      font-size: 16px;
-    }
-
     .ai-close {
       background: transparent;
       border: none;
@@ -392,7 +390,6 @@
 
     .message.bot {
       background: #242424;
-      color: #eee;
     }
 
     .message.user {
@@ -426,7 +423,6 @@
       background: #e00000;
       color: white;
       cursor: pointer;
-      font-size: 18px;
     }
 
     /* WHATSAPP */
@@ -488,7 +484,7 @@
 
     .modal-body h2 {
       font-size: 29px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
 
     .modal-description {
@@ -507,12 +503,6 @@
       cursor: pointer;
     }
 
-    .loading {
-      text-align: center;
-      padding: 60px 20px;
-      color: #aaa;
-    }
-
     @media(max-width:600px) {
       .location {
         display: none;
@@ -520,7 +510,6 @@
 
       .hero {
         min-height: 350px;
-        padding: 50px 18px;
       }
 
       .hero p {
@@ -559,7 +548,10 @@
 
 <section class="hero">
   <div class="hero-content">
-    <h1>Encontrá tu próximo <span>auto</span></h1>
+
+    <h1>
+      Encontrá tu próximo <span>auto</span>
+    </h1>
 
     <p>
       Compra y venta de vehículos en Salta Capital.
@@ -567,14 +559,23 @@
     </p>
 
     <div class="hero-buttons">
-      <button class="btn btn-red" onclick="scrollToInventory()">
+
+      <button
+        class="btn btn-red"
+        onclick="scrollToInventory()"
+      >
         🚗 Ver vehículos
       </button>
 
-      <button class="btn btn-dark" onclick="openAI()">
+      <button
+        class="btn btn-dark"
+        onclick="openAI()"
+      >
         🤖 Consultar con IA
       </button>
+
     </div>
+
   </div>
 </section>
 
@@ -622,12 +623,12 @@
 
     <div class="service">
       <strong>💳 Apto crédito</strong>
-      <p>Consultá por opciones de financiación para tu próximo vehículo.</p>
+      <p>Consultá por opciones de financiación.</p>
     </div>
 
     <div class="service">
       <strong>📆 Financiación y cuotas</strong>
-      <p>Opciones de financiación según el vehículo y tu situación.</p>
+      <p>Opciones de financiación según el vehículo.</p>
     </div>
 
     <div class="service">
@@ -637,7 +638,7 @@
 
     <div class="service">
       <strong>🤝 Consignación</strong>
-      <p>Vendé tu vehículo con el respaldo de Alpalisa Automotores.</p>
+      <p>Vendé tu vehículo con Alpalisa Automotores.</p>
     </div>
 
     <div class="service">
@@ -663,7 +664,7 @@
 </footer>
 
 
-<!-- CHAT IA -->
+<!-- BOTÓN IA -->
 
 <button
   class="ai-button"
@@ -673,17 +674,30 @@
   🤖
 </button>
 
+
+<!-- CHAT IA -->
+
 <div class="ai-window" id="aiWindow">
 
   <div class="ai-header">
-    <strong>🤖 Asistente Alpalisa</strong>
 
-    <button class="ai-close" onclick="closeAI()">
+    <strong>
+      🤖 Asistente Alpalisa
+    </strong>
+
+    <button
+      class="ai-close"
+      onclick="closeAI()"
+    >
       ×
     </button>
+
   </div>
 
-  <div class="ai-messages" id="aiMessages">
+  <div
+    class="ai-messages"
+    id="aiMessages"
+  >
 
     <div class="message bot">
       ¡Hola! 👋 Soy el asistente de Alpalisa Automotores.
@@ -700,7 +714,6 @@
       id="aiInput"
       type="text"
       placeholder="Escribí tu consulta..."
-      autocomplete="off"
     >
 
     <button onclick="sendAIMessage()">
@@ -712,7 +725,7 @@
 </div>
 
 
-<!-- WHATSAPP GENERAL -->
+<!-- WHATSAPP -->
 
 <a
   id="whatsappFloat"
@@ -720,15 +733,17 @@
   href="https://wa.me/543875497911?text=Hola%20Alpalisa%20Automotores%2C%20quiero%20hacer%20una%20consulta."
   target="_blank"
   rel="noopener"
-  aria-label="WhatsApp"
 >
   💬
 </a>
 
 
-<!-- MODAL VEHÍCULO -->
+<!-- MODAL -->
 
-<div class="modal" id="carModal">
+<div
+  class="modal"
+  id="carModal"
+>
 
   <div class="modal-content">
 
@@ -750,9 +765,15 @@
 
       <h2 id="modalTitle"></h2>
 
-      <div id="modalSpecs" class="specs"></div>
+      <div
+        id="modalSpecs"
+        class="specs"
+      ></div>
 
-      <div id="modalPrice" class="price"></div>
+      <div
+        id="modalPrice"
+        class="price"
+      ></div>
 
       <p
         id="modalDescription"
@@ -809,34 +830,68 @@ async function loadVehicles() {
   container.innerHTML =
     '<div class="loading">Cargando vehículos...</div>';
 
-  const { data, error } =
-    await supabaseClient
-      .from("vehiculos")
-      .select("*")
-      .eq("vendido", false)
-      .order("destacado", { ascending: false })
-      .order("created_at", { ascending: false });
+  try {
 
-  if (error) {
+    const { data, error } =
+      await supabaseClient
+        .from("vehiculos")
+        .select("*")
+        .order("destacado", {
+          ascending: false
+        })
+        .order("created_at", {
+          ascending: false
+        });
+
+    if (error) {
+
+      console.error(
+        "ERROR SUPABASE:",
+        error
+      );
+
+      container.innerHTML = `
+        <div class="empty">
+          No se pudieron cargar los vehículos.
+          <br><br>
+          Error: ${escapeHtml(error.message)}
+        </div>
+      `;
+
+      return;
+    }
+
+    /*
+      IMPORTANTE:
+      Solo ocultamos los vehículos que tengan
+      vendido = true.
+      Si vendido es false o NULL,
+      el vehículo se muestra.
+    */
+
+    vehicles =
+      (data || []).filter(
+        vehicle => vehicle.vendido !== true
+      );
+
+    populateFilters();
+
+    renderVehicles(vehicles);
+
+  } catch (error) {
 
     console.error(error);
 
     container.innerHTML = `
       <div class="empty">
-        No se pudieron cargar los vehículos.
+        Ocurrió un error al cargar los vehículos.
         <br><br>
-        Intentá actualizar la página.
+        Actualizá la página.
       </div>
     `;
 
-    return;
   }
 
-  vehicles = data || [];
-
-  populateFilters();
-
-  renderVehicles(vehicles);
 }
 
 
@@ -847,56 +902,73 @@ async function loadVehicles() {
 function populateFilters() {
 
   const brandSelect =
-    document.getElementById("brandFilter");
+    document.getElementById(
+      "brandFilter"
+    );
 
   const yearSelect =
-    document.getElementById("yearFilter");
+    document.getElementById(
+      "yearFilter"
+    );
 
   const brands =
     [...new Set(
       vehicles
-        .map(v => v.marca)
+        .map(vehicle => vehicle.marca)
         .filter(Boolean)
-    )]
-    .sort();
+    )].sort();
 
   const years =
     [...new Set(
       vehicles
-        .map(v => v.anio)
+        .map(vehicle => vehicle.anio)
         .filter(Boolean)
-    )]
-    .sort((a,b) => b-a);
+    )].sort(
+      (a, b) => b - a
+    );
 
   brandSelect.innerHTML =
     '<option value="">Todas las marcas</option>';
 
-  brands.forEach(brand => {
+  brands.forEach(
+    brand => {
 
-    const option =
-      document.createElement("option");
+      const option =
+        document.createElement(
+          "option"
+        );
 
-    option.value = brand;
-    option.textContent = brand;
+      option.value = brand;
+      option.textContent = brand;
 
-    brandSelect.appendChild(option);
+      brandSelect.appendChild(
+        option
+      );
 
-  });
+    }
+  );
 
   yearSelect.innerHTML =
     '<option value="">Todos los años</option>';
 
-  years.forEach(year => {
+  years.forEach(
+    year => {
 
-    const option =
-      document.createElement("option");
+      const option =
+        document.createElement(
+          "option"
+        );
 
-    option.value = year;
-    option.textContent = year;
+      option.value = year;
+      option.textContent = year;
 
-    yearSelect.appendChild(option);
+      yearSelect.appendChild(
+        option
+      );
 
-  });
+    }
+  );
+
 }
 
 
@@ -910,53 +982,56 @@ function applyFilters() {
       .trim();
 
   const brand =
-    document.getElementById("brandFilter").value;
+    document.getElementById(
+      "brandFilter"
+    ).value;
 
   const year =
-    document.getElementById("yearFilter").value;
+    document.getElementById(
+      "yearFilter"
+    ).value;
 
   const filtered =
-    vehicles.filter(vehicle => {
+    vehicles.filter(
+      vehicle => {
 
-      const text =
-        `${vehicle.marca || ""} ${vehicle.modelo || ""}`
-          .toLowerCase();
+        const text =
+          `${vehicle.marca || ""} ${vehicle.modelo || ""}`
+            .toLowerCase();
 
-      const matchesSearch =
-        !search || text.includes(search);
+        return (
+          (!search ||
+            text.includes(search)) &&
+          (!brand ||
+            vehicle.marca === brand) &&
+          (!year ||
+            String(vehicle.anio) === String(year))
+        );
 
-      const matchesBrand =
-        !brand || vehicle.marca === brand;
-
-      const matchesYear =
-        !year || String(vehicle.anio) === String(year);
-
-      return (
-        matchesSearch &&
-        matchesBrand &&
-        matchesYear
-      );
-
-    });
+      }
+    );
 
   renderVehicles(filtered);
+
 }
 
 
 /* =========================
-   VEHÍCULOS
+   MOSTRAR VEHÍCULOS
 ========================= */
 
 function renderVehicles(list) {
 
   const container =
-    document.getElementById("carsContainer");
+    document.getElementById(
+      "carsContainer"
+    );
 
   if (!list.length) {
 
     container.innerHTML = `
       <div class="empty">
-        No encontramos vehículos con esos filtros.
+        Todavía no hay vehículos disponibles.
       </div>
     `;
 
@@ -966,141 +1041,189 @@ function renderVehicles(list) {
   const grid =
     document.createElement("div");
 
-  grid.className = "cars-grid";
+  grid.className =
+    "cars-grid";
 
-  list.forEach(vehicle => {
+  list.forEach(
+    vehicle => {
 
-    const card =
-      document.createElement("div");
+      const card =
+        document.createElement(
+          "div"
+        );
 
-    card.className = "car-card";
+      card.className =
+        "car-card";
 
-    const image =
-      vehicle.imagen ||
-      (
-        vehicle.imagenes &&
-        vehicle.imagenes.length
-          ? vehicle.imagenes[0]
-          : ""
-      );
+      const image =
+        vehicle.imagen ||
+        (
+          Array.isArray(
+            vehicle.imagenes
+          ) &&
+          vehicle.imagenes.length
+            ? vehicle.imagenes[0]
+            : ""
+        );
 
-    const price =
-      formatPrice(vehicle.precio);
+      let badge = "";
 
-    const badge =
-      vehicle.oferta
-        ? `<div class="badge offer">🔥 OFERTA</div>`
-        : vehicle.destacado
-          ? `<div class="badge">⭐ DESTACADO</div>`
-          : "";
+      if (vehicle.oferta) {
 
-    card.innerHTML = `
+        badge =
+          '<div class="badge offer">🔥 OFERTA</div>';
 
-      <div class="car-image">
+      } else if (vehicle.destacado) {
 
-        ${
-          image
-            ? `<img
-                src="${escapeHtml(image)}"
-                alt="${escapeHtml(vehicle.marca || "")} ${escapeHtml(vehicle.modelo || "")}"
-                loading="lazy"
-              >`
-            : `<div style="
-                width:100%;
-                height:100%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:#777;
-              ">
-                Sin imagen
-              </div>`
-        }
+        badge =
+          '<div class="badge">⭐ DESTACADO</div>';
 
-        ${badge}
+      }
 
-      </div>
+      card.innerHTML = `
 
-      <div class="car-body">
-
-        <h3>
-          ${escapeHtml(vehicle.marca || "")}
-        </h3>
-
-        <div class="car-model">
-          ${escapeHtml(vehicle.modelo || "")}
-        </div>
-
-        <div class="specs">
+        <div class="car-image">
 
           ${
-            vehicle.anio
-              ? `<span class="spec">📅 ${vehicle.anio}</span>`
-              : ""
+            image
+              ? `
+                <img
+                  src="${escapeHtml(image)}"
+                  alt="${escapeHtml(vehicle.marca || "")} ${escapeHtml(vehicle.modelo || "")}"
+                  loading="lazy"
+                >
+              `
+              : `
+                <div style="
+                  width:100%;
+                  height:100%;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  color:#777;
+                ">
+                  Sin imagen
+                </div>
+              `
           }
 
-          ${
-            vehicle.kilometros != null
-              ? `<span class="spec">🛣️ ${formatNumber(vehicle.kilometros)} km</span>`
-              : ""
-          }
-
-          ${
-            vehicle.combustible
-              ? `<span class="spec">⛽ ${escapeHtml(vehicle.combustible)}</span>`
-              : ""
-          }
-
-          ${
-            vehicle.transmision
-              ? `<span class="spec">⚙️ ${escapeHtml(vehicle.transmision)}</span>`
-              : ""
-          }
+          ${badge}
 
         </div>
 
-        <div class="price">
-          ${price}
+        <div class="car-body">
+
+          <h3>
+            ${escapeHtml(
+              vehicle.marca || ""
+            )}
+          </h3>
+
+          <div class="car-model">
+            ${escapeHtml(
+              vehicle.modelo || ""
+            )}
+          </div>
+
+          <div class="specs">
+
+            ${
+              vehicle.anio
+                ? `
+                  <span class="spec">
+                    📅 ${vehicle.anio}
+                  </span>
+                `
+                : ""
+            }
+
+            ${
+              vehicle.kilometros != null
+                ? `
+                  <span class="spec">
+                    🛣️ ${formatNumber(
+                      vehicle.kilometros
+                    )} km
+                  </span>
+                `
+                : ""
+            }
+
+            ${
+              vehicle.combustible
+                ? `
+                  <span class="spec">
+                    ⛽ ${escapeHtml(
+                      vehicle.combustible
+                    )}
+                  </span>
+                `
+                : ""
+            }
+
+            ${
+              vehicle.transmision
+                ? `
+                  <span class="spec">
+                    ⚙️ ${escapeHtml(
+                      vehicle.transmision
+                    )}
+                  </span>
+                `
+                : ""
+            }
+
+          </div>
+
+          <div class="price">
+            ${formatPrice(
+              vehicle.precio
+            )}
+          </div>
+
+          <div class="car-actions">
+
+            <button
+              class="btn-details"
+              onclick="openVehicle(${vehicle.id})"
+            >
+              Ver vehículo
+            </button>
+
+            <button
+              class="btn-whatsapp"
+              onclick="whatsappVehicle(${vehicle.id})"
+            >
+              💬 WhatsApp
+            </button>
+
+          </div>
+
         </div>
+      `;
 
-        <div class="car-actions">
+      grid.appendChild(card);
 
-          <button
-            class="btn-details"
-            onclick="openVehicle(${vehicle.id})"
-          >
-            Ver vehículo
-          </button>
-
-          <button
-            class="btn-whatsapp"
-            onclick="whatsappVehicle(${vehicle.id})"
-          >
-            💬 WhatsApp
-          </button>
-
-        </div>
-
-      </div>
-    `;
-
-    grid.appendChild(card);
-
-  });
+    }
+  );
 
   container.innerHTML = "";
+
   container.appendChild(grid);
+
 }
 
 
 /* =========================
-   DETALLE
+   DETALLE DEL AUTO
 ========================= */
 
 function openVehicle(id) {
 
   const vehicle =
-    vehicles.find(v => Number(v.id) === Number(id));
+    vehicles.find(
+      v => Number(v.id) === Number(id)
+    );
 
   if (!vehicle) return;
 
@@ -1109,26 +1232,39 @@ function openVehicle(id) {
   const image =
     vehicle.imagen ||
     (
-      vehicle.imagenes &&
+      Array.isArray(
+        vehicle.imagenes
+      ) &&
       vehicle.imagenes.length
         ? vehicle.imagenes[0]
         : ""
     );
 
-  document.getElementById("modalImage").src =
-    image || "";
+  document.getElementById(
+    "modalImage"
+  ).src = image || "";
 
-  document.getElementById("modalTitle").textContent =
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
     `${vehicle.marca || ""} ${vehicle.modelo || ""}`;
 
-  document.getElementById("modalPrice").textContent =
-    formatPrice(vehicle.precio);
+  document.getElementById(
+    "modalPrice"
+  ).textContent =
+    formatPrice(
+      vehicle.precio
+    );
 
-  document.getElementById("modalDescription").textContent =
+  document.getElementById(
+    "modalDescription"
+  ).textContent =
     vehicle.descripcion ||
     "Consultá todos los detalles de este vehículo con Alpalisa Automotores.";
 
-  document.getElementById("modalSpecs").innerHTML = `
+  document.getElementById(
+    "modalSpecs"
+  ).innerHTML = `
 
     ${
       vehicle.anio
@@ -1180,8 +1316,12 @@ function openVehicle(id) {
 
   `;
 
-  document.getElementById("modalWhatsapp").onclick =
-    () => whatsappVehicle(vehicle.id);
+  document.getElementById(
+    "modalWhatsapp"
+  ).onclick =
+    () => whatsappVehicle(
+      vehicle.id
+    );
 
   document
     .getElementById("carModal")
@@ -1191,6 +1331,7 @@ function openVehicle(id) {
     "vehiculo_visto",
     vehicle.id
   );
+
 }
 
 
@@ -1204,13 +1345,15 @@ function closeModal() {
 
 
 /* =========================
-   WHATSAPP POR VEHÍCULO
+   WHATSAPP DEL VEHÍCULO
 ========================= */
 
 function whatsappVehicle(id) {
 
   const vehicle =
-    vehicles.find(v => Number(v.id) === Number(id));
+    vehicles.find(
+      v => Number(v.id) === Number(id)
+    );
 
   if (!vehicle) return;
 
@@ -1218,20 +1361,23 @@ function whatsappVehicle(id) {
     `${vehicle.marca || ""} ${vehicle.modelo || ""}`.trim();
 
   let message =
-    `Hola Alpalisa Automotores 👋%0A%0A` +
+    `Hola Alpalisa Automotores 👋\n\n` +
     `Estoy interesado en el ${name}`;
 
   if (vehicle.anio) {
-    message += ` ${vehicle.anio}`;
+    message +=
+      ` ${vehicle.anio}`;
   }
 
   message +=
-    ` que vi en la página.%0A%0A` +
+    ` que vi en la página.\n\n` +
     `¿Sigue disponible?`;
 
   if (vehicle.precio) {
     message +=
-      `%0APrecio publicado: ${formatPrice(vehicle.precio)}`;
+      `\nPrecio publicado: ${formatPrice(
+        vehicle.precio
+      )}`;
   }
 
   trackEvent(
@@ -1240,30 +1386,21 @@ function whatsappVehicle(id) {
   );
 
   window.open(
-    `https://wa.me/${WHATSAPP}?text=${message}`,
+    `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`,
     "_blank"
   );
+
 }
-
-
-/* =========================
-   WHATSAPP GENERAL
-========================= */
-
-document
-  .getElementById("whatsappFloat")
-  .addEventListener("click", () => {
-
-    trackEvent("whatsapp_general");
-
-  });
 
 
 /* =========================
    ANALYTICS
 ========================= */
 
-async function trackEvent(tipo, vehiculoId = null) {
+async function trackEvent(
+  tipo,
+  vehiculoId = null
+) {
 
   try {
 
@@ -1282,6 +1419,7 @@ async function trackEvent(tipo, vehiculoId = null) {
     );
 
   }
+
 }
 
 
@@ -1291,95 +1429,139 @@ async function trackEvent(tipo, vehiculoId = null) {
 
 function toggleAI() {
 
-  const windowAI =
-    document.getElementById("aiWindow");
+  const ai =
+    document.getElementById(
+      "aiWindow"
+    );
 
-  windowAI.classList.toggle("open");
+  ai.classList.toggle(
+    "open"
+  );
 
-  if (windowAI.classList.contains("open")) {
-    trackEvent("chat_ia_abierto");
+  if (ai.classList.contains("open")) {
 
-    setTimeout(() => {
-      document.getElementById("aiInput").focus();
-    }, 100);
+    trackEvent(
+      "chat_ia_abierto"
+    );
+
+    setTimeout(
+      () => document
+        .getElementById(
+          "aiInput"
+        )
+        .focus(),
+      100
+    );
+
   }
+
 }
 
 
 function openAI() {
 
   document
-    .getElementById("aiWindow")
-    .classList.add("open");
+    .getElementById(
+      "aiWindow"
+    )
+    .classList.add(
+      "open"
+    );
 
-  trackEvent("chat_ia_abierto");
+  trackEvent(
+    "chat_ia_abierto"
+  );
 
-  setTimeout(() => {
-    document.getElementById("aiInput").focus();
-  }, 100);
 }
 
 
 function closeAI() {
 
   document
-    .getElementById("aiWindow")
-    .classList.remove("open");
+    .getElementById(
+      "aiWindow"
+    )
+    .classList.remove(
+      "open"
+    );
 
 }
 
 
-function addAIMessage(text, type) {
+function addAIMessage(
+  text,
+  type
+) {
 
   const messages =
-    document.getElementById("aiMessages");
+    document.getElementById(
+      "aiMessages"
+    );
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.className =
     `message ${type}`;
 
-  div.textContent = text;
+  div.textContent =
+    text;
 
-  messages.appendChild(div);
+  messages.appendChild(
+    div
+  );
 
   messages.scrollTop =
     messages.scrollHeight;
+
 }
 
 
 function sendAIMessage() {
 
   const input =
-    document.getElementById("aiInput");
+    document.getElementById(
+      "aiInput"
+    );
 
   const text =
     input.value.trim();
 
   if (!text) return;
 
-  addAIMessage(text, "user");
+  addAIMessage(
+    text,
+    "user"
+  );
 
   input.value = "";
 
-  trackEvent("chat_ia_mensaje");
+  trackEvent(
+    "chat_ia_mensaje"
+  );
 
-  setTimeout(() => {
+  setTimeout(
+    () => {
 
-    const answer =
-      generateAssistantAnswer(text);
+      addAIMessage(
+        generateAssistantAnswer(
+          text
+        ),
+        "bot"
+      );
 
-    addAIMessage(
-      answer,
-      "bot"
-    );
+    },
+    350
+  );
 
-  }, 350);
 }
 
 
-function generateAssistantAnswer(text) {
+function generateAssistantAnswer(
+  text
+) {
 
   const q =
     text.toLowerCase();
@@ -1390,7 +1572,7 @@ function generateAssistantAnswer(text) {
     q.includes("cuánto")
   ) {
 
-    return "Claro 👍 Podés mirar los precios publicados arriba o decime qué marca/modelo buscás y te ayudo a encontrarlo.";
+    return "Claro 👍 Podés mirar los precios publicados o decirme qué marca y modelo buscás.";
 
   }
 
@@ -1401,7 +1583,7 @@ function generateAssistantAnswer(text) {
     q.includes("crédito")
   ) {
 
-    return "Sí 👍 Alpalisa ofrece opciones de financiación y cuotas en vehículos seleccionados. Para conocer las condiciones exactas, podés consultar directamente por WhatsApp.";
+    return "Sí 👍 Hay opciones de financiación y cuotas en vehículos seleccionados. Podés consultar directamente por WhatsApp.";
 
   }
 
@@ -1410,7 +1592,7 @@ function generateAssistantAnswer(text) {
     q.includes("cambio")
   ) {
 
-    return "Sí 🔄 trabajamos con permutas. Mandanos los datos de tu vehículo por WhatsApp y te orientamos.";
+    return "Sí 🔄 trabajamos con permutas. Podés consultar por WhatsApp y enviar los datos de tu vehículo.";
 
   }
 
@@ -1418,17 +1600,7 @@ function generateAssistantAnswer(text) {
     q.includes("consign")
   ) {
 
-    return "Sí 🤝 trabajamos con consignación. Podemos ayudarte a publicar y vender tu vehículo.";
-
-  }
-
-  if (
-    q.includes("whatsapp") ||
-    q.includes("contacto") ||
-    q.includes("hablar")
-  ) {
-
-    return "Por supuesto 📲 Podés tocar el botón verde de WhatsApp y hablar directamente con Alpalisa Automotores.";
+    return "Sí 🤝 trabajamos con consignación para ayudarte a vender tu vehículo.";
 
   }
 
@@ -1439,13 +1611,20 @@ function generateAssistantAnswer(text) {
     q.includes("busco")
   ) {
 
-    return `Tenemos ${
-      vehicles.length
-    } vehículo(s) publicado(s) actualmente. Podés revisar el inventario o decirme qué marca, modelo o presupuesto estás buscando.`;
+    return `Actualmente hay ${vehicles.length} vehículo(s) publicado(s). Decime qué marca, modelo o presupuesto buscás.`;
 
   }
 
-  return "¡Claro! 👋 Puedo ayudarte con vehículos disponibles, precios, financiación, cuotas, permutas y consignación. ¿Qué estás buscando?";
+  if (
+    q.includes("whatsapp") ||
+    q.includes("contacto")
+  ) {
+
+    return "📲 Tocá el botón verde de WhatsApp para hablar directamente con Alpalisa Automotores.";
+
+  }
+
+  return "¡Hola! 👋 Puedo ayudarte con vehículos disponibles, precios, financiación, cuotas, permutas y consignación. ¿Qué estás buscando?";
 
 }
 
@@ -1453,28 +1632,39 @@ function generateAssistantAnswer(text) {
 /* ENTER EN CHAT */
 
 document
-  .getElementById("aiInput")
-  .addEventListener("keydown", function(e) {
+  .getElementById(
+    "aiInput"
+  )
+  .addEventListener(
+    "keydown",
+    function(e) {
 
-    if (e.key === "Enter") {
-      sendAIMessage();
+      if (
+        e.key === "Enter"
+      ) {
+        sendAIMessage();
+      }
+
     }
-
-  });
+  );
 
 
 /* =========================
    UTILIDADES
 ========================= */
 
-function formatPrice(value) {
+function formatPrice(
+  value
+) {
 
   if (
     value === null ||
     value === undefined ||
     value === ""
   ) {
+
     return "Consultar precio";
+
   }
 
   return new Intl.NumberFormat(
@@ -1484,28 +1674,53 @@ function formatPrice(value) {
       currency: "ARS",
       maximumFractionDigits: 0
     }
-  ).format(Number(value));
+  ).format(
+    Number(value)
+  );
 
 }
 
 
-function formatNumber(value) {
+function formatNumber(
+  value
+) {
 
   return new Intl.NumberFormat(
     "es-AR"
-  ).format(Number(value || 0));
+  ).format(
+    Number(value || 0)
+  );
 
 }
 
 
-function escapeHtml(value) {
+function escapeHtml(
+  value
+) {
 
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
@@ -1513,7 +1728,9 @@ function escapeHtml(value) {
 function scrollToInventory() {
 
   document
-    .getElementById("inventario")
+    .getElementById(
+      "inventario"
+    )
     .scrollIntoView({
       behavior: "smooth"
     });
@@ -1522,48 +1739,57 @@ function scrollToInventory() {
 
 
 /* =========================
-   EVENTOS FILTROS
+   EVENTOS
 ========================= */
 
 document
-  .getElementById("search")
+  .getElementById(
+    "search"
+  )
   .addEventListener(
     "input",
     applyFilters
   );
 
 document
-  .getElementById("brandFilter")
+  .getElementById(
+    "brandFilter"
+  )
   .addEventListener(
     "change",
     applyFilters
   );
 
 document
-  .getElementById("yearFilter")
+  .getElementById(
+    "yearFilter"
+  )
   .addEventListener(
     "change",
     applyFilters
   );
 
 
-/* =========================
-   CERRAR MODAL
-========================= */
-
 document
-  .getElementById("carModal")
-  .addEventListener("click", function(e) {
+  .getElementById(
+    "carModal"
+  )
+  .addEventListener(
+    "click",
+    function(e) {
 
-    if (e.target === this) {
-      closeModal();
+      if (
+        e.target === this
+      ) {
+        closeModal();
+      }
+
     }
-
-  });
+  );
 
 
 /* =========================
-   INICIO
+   INICIAR
 ========================= */
 
 loadVehicles();
@@ -1571,4 +1797,4 @@ loadVehicles();
 </script>
 
 </body>
-  </html>
+</html>
