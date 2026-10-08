@@ -366,11 +366,88 @@
       overflow: hidden;
     }
 
+    /* ================================
+       GALERÍA DEL VEHÍCULO
+    ================================ */
+
+    .modal-gallery {
+      position: relative;
+      width: 100%;
+      background: #181818;
+    }
+
     .modal-image {
       width: 100%;
       height: 400px;
       object-fit: cover;
       background: #181818;
+      display: block;
+    }
+
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0,0,0,.75);
+      color: #fff;
+      font-size: 30px;
+      line-height: 48px;
+      text-align: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .gallery-arrow:hover {
+      background: #e00000;
+    }
+
+    .gallery-prev {
+      left: 15px;
+    }
+
+    .gallery-next {
+      right: 15px;
+    }
+
+    .gallery-counter {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.75);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      z-index: 5;
+    }
+
+    .gallery-thumbnails {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      overflow-x: auto;
+      background: #0d0d0d;
+    }
+
+    .gallery-thumb {
+      width: 75px;
+      height: 55px;
+      min-width: 75px;
+      object-fit: cover;
+      border-radius: 7px;
+      border: 2px solid #333;
+      cursor: pointer;
+      opacity: .65;
+    }
+
+    .gallery-thumb.active {
+      border-color: #e00000;
+      opacity: 1;
     }
 
     .modal-content {
@@ -433,6 +510,21 @@
 
       .modal-image {
         height: 250px;
+      }
+
+      .gallery-arrow {
+        width: 42px;
+        height: 42px;
+        line-height: 42px;
+        font-size: 25px;
+      }
+
+      .gallery-prev {
+        left: 10px;
+      }
+
+      .gallery-next {
+        right: 10px;
       }
     }
   </style>
@@ -613,12 +705,44 @@
 
   <div class="modal-box">
 
-    <img
-      id="modalImage"
-      class="modal-image"
-      src=""
-      alt="Vehículo"
-    >
+    <div class="modal-gallery">
+
+      <img
+        id="modalImage"
+        class="modal-image"
+        src=""
+        alt="Vehículo"
+      >
+
+      <button
+        id="galleryPrev"
+        class="gallery-arrow gallery-prev"
+        onclick="previousImage(event)"
+      >
+        ‹
+      </button>
+
+      <button
+        id="galleryNext"
+        class="gallery-arrow gallery-next"
+        onclick="nextImage(event)"
+      >
+        ›
+      </button>
+
+      <div
+        id="galleryCounter"
+        class="gallery-counter"
+      >
+        1 / 1
+      </div>
+
+    </div>
+
+    <div
+      id="galleryThumbnails"
+      class="gallery-thumbnails"
+    ></div>
 
     <div class="modal-content">
 
@@ -675,6 +799,15 @@ let vehicles = [];
 
 
 /* ================================
+   GALERÍA
+================================ */
+
+let currentImages = [];
+
+let currentImageIndex = 0;
+
+
+/* ================================
    CARGAR VEHÍCULOS
 ================================ */
 
@@ -728,7 +861,6 @@ async function loadVehicles() {
       return;
     }
 
-
     /*
       IMPORTANTE:
       NO FILTRAMOS vendido.
@@ -740,17 +872,14 @@ async function loadVehicles() {
 
     vehicles = data || [];
 
-
     console.log(
       "VEHÍCULOS RECIBIDOS:",
       vehicles
     );
 
-
     updateFilters();
 
     renderVehicles();
-
 
     if (vehicles.length === 0) {
 
@@ -805,7 +934,6 @@ function updateFilters() {
       "yearFilter"
     );
 
-
   const brands =
     [
       ...new Set(
@@ -819,14 +947,12 @@ function updateFilters() {
     ]
     .sort();
 
-
   brandFilter.innerHTML =
     `
       <option value="">
         Todas las marcas
       </option>
     `;
-
 
   brands.forEach(
     brand => {
@@ -849,7 +975,6 @@ function updateFilters() {
     }
   );
 
-
   const years =
     [
       ...new Set(
@@ -865,14 +990,12 @@ function updateFilters() {
       (a,b) => b-a
     );
 
-
   yearFilter.innerHTML =
     `
       <option value="">
         Todos los años
       </option>
     `;
-
 
   years.forEach(
     year => {
@@ -909,7 +1032,6 @@ function renderVehicles() {
       "vehicles"
     );
 
-
   const search =
     document
       .getElementById(
@@ -919,7 +1041,6 @@ function renderVehicles() {
       .toLowerCase()
       .trim();
 
-
   const brand =
     document
       .getElementById(
@@ -927,14 +1048,12 @@ function renderVehicles() {
       )
       .value;
 
-
   const year =
     document
       .getElementById(
         "yearFilter"
       )
       .value;
-
 
   const filtered =
     vehicles.filter(
@@ -948,23 +1067,19 @@ function renderVehicles() {
           )
           .toLowerCase();
 
-
         const matchesSearch =
           !search ||
           text.includes(search);
 
-
         const matchesBrand =
           !brand ||
           vehicle.marca === brand;
-
 
         const matchesYear =
           !year ||
           String(
             vehicle.anio
           ) === String(year);
-
 
         return (
           matchesSearch &&
@@ -974,7 +1089,6 @@ function renderVehicles() {
 
       }
     );
-
 
   if (
     filtered.length === 0
@@ -1013,7 +1127,6 @@ function renderVehicles() {
 
   }
 
-
   container.innerHTML =
     filtered
       .map(
@@ -1041,10 +1154,8 @@ function vehicleCard(
     )
     .trim();
 
-
   let image =
     vehicle.imagen || "";
-
 
   if (
     !image &&
@@ -1059,10 +1170,8 @@ function vehicleCard(
 
   }
 
-
   let price =
     "Consultar precio";
-
 
   if (
     vehicle.precio !== null &&
@@ -1080,7 +1189,6 @@ function vehicleCard(
       );
 
   }
-
 
   const details =
     [
@@ -1108,7 +1216,6 @@ function vehicleCard(
     ]
     .filter(Boolean)
     .join(" · ");
-
 
   return `
 
@@ -1144,7 +1251,6 @@ function vehicleCard(
           `
         }
 
-
         ${
           vehicle.destacado
 
@@ -1160,7 +1266,6 @@ function vehicleCard(
 
           ""
         }
-
 
         ${
           vehicle.oferta
@@ -1180,18 +1285,15 @@ function vehicleCard(
 
       </div>
 
-
       <div class="vehicle-info">
 
         <h3>
           ${escapeHtml(title)}
         </h3>
 
-
         <div class="details">
           ${escapeHtml(details)}
         </div>
-
 
         <div class="price">
 
@@ -1211,7 +1313,6 @@ function vehicleCard(
           }
 
         </div>
-
 
         <button
           class="btn btn-red"
@@ -1268,6 +1369,297 @@ function escapeHtml(
 
 
 /* ================================
+   PREPARAR GALERÍA
+================================ */
+
+function prepareGallery(
+  vehicle
+) {
+
+  currentImages = [];
+
+  currentImageIndex = 0;
+
+  if (
+    vehicle.imagen
+  ) {
+
+    currentImages.push(
+      vehicle.imagen
+    );
+
+  }
+
+  if (
+    Array.isArray(
+      vehicle.imagenes
+    )
+  ) {
+
+    vehicle.imagenes.forEach(
+      image => {
+
+        if (
+          image &&
+          !currentImages.includes(
+            image
+          )
+        ) {
+
+          currentImages.push(
+            image
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+  renderGallery();
+
+}
+
+
+/* ================================
+   MOSTRAR GALERÍA
+================================ */
+
+function renderGallery() {
+
+  const image =
+    document.getElementById(
+      "modalImage"
+    );
+
+  const prev =
+    document.getElementById(
+      "galleryPrev"
+    );
+
+  const next =
+    document.getElementById(
+      "galleryNext"
+    );
+
+  const counter =
+    document.getElementById(
+      "galleryCounter"
+    );
+
+  const thumbnails =
+    document.getElementById(
+      "galleryThumbnails"
+    );
+
+  if (
+    currentImages.length === 0
+  ) {
+
+    image.src = "";
+
+    image.alt =
+      "Sin imagen";
+
+    prev.style.display =
+      "none";
+
+    next.style.display =
+      "none";
+
+    counter.style.display =
+      "none";
+
+    thumbnails.innerHTML =
+      "";
+
+    return;
+
+  }
+
+  if (
+    currentImageIndex < 0
+  ) {
+
+    currentImageIndex = 0;
+
+  }
+
+  if (
+    currentImageIndex >=
+    currentImages.length
+  ) {
+
+    currentImageIndex =
+      currentImages.length - 1;
+
+  }
+
+  image.src =
+    currentImages[
+      currentImageIndex
+    ];
+
+  image.alt =
+    "Vehículo - Foto " +
+    (
+      currentImageIndex + 1
+    );
+
+  if (
+    currentImages.length > 1
+  ) {
+
+    prev.style.display =
+      "block";
+
+    next.style.display =
+      "block";
+
+    counter.style.display =
+      "block";
+
+  } else {
+
+    prev.style.display =
+      "none";
+
+    next.style.display =
+      "none";
+
+    counter.style.display =
+      "none";
+
+  }
+
+  counter.textContent =
+    (
+      currentImageIndex + 1
+    ) +
+    " / " +
+    currentImages.length;
+
+  thumbnails.innerHTML =
+    currentImages
+      .map(
+        (imageUrl, index) => `
+
+          <img
+            src="${escapeHtml(imageUrl)}"
+            class="gallery-thumb ${
+              index === currentImageIndex
+                ? "active"
+                : ""
+            }"
+            alt="Foto ${index + 1}"
+            onclick="selectImage(${index}, event)"
+          >
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* ================================
+   FOTO ANTERIOR
+================================ */
+
+function previousImage(
+  event
+) {
+
+  if (event) {
+    event.stopPropagation();
+  }
+
+  if (
+    currentImages.length <= 1
+  ) {
+    return;
+  }
+
+  currentImageIndex--;
+
+  if (
+    currentImageIndex < 0
+  ) {
+
+    currentImageIndex =
+      currentImages.length - 1;
+
+  }
+
+  renderGallery();
+
+}
+
+
+/* ================================
+   FOTO SIGUIENTE
+================================ */
+
+function nextImage(
+  event
+) {
+
+  if (event) {
+    event.stopPropagation();
+  }
+
+  if (
+    currentImages.length <= 1
+  ) {
+    return;
+  }
+
+  currentImageIndex++;
+
+  if (
+    currentImageIndex >=
+    currentImages.length
+  ) {
+
+    currentImageIndex = 0;
+
+  }
+
+  renderGallery();
+
+}
+
+
+/* ================================
+   SELECCIONAR MINIATURA
+================================ */
+
+function selectImage(
+  index,
+  event
+) {
+
+  if (event) {
+    event.stopPropagation();
+  }
+
+  if (
+    index < 0 ||
+    index >= currentImages.length
+  ) {
+    return;
+  }
+
+  currentImageIndex =
+    index;
+
+  renderGallery();
+
+}
+
+
+/* ================================
    DETALLE DEL VEHÍCULO
 ================================ */
 
@@ -1282,11 +1674,9 @@ async function openVehicle(
         Number(id)
     );
 
-
   if (!vehicle) {
     return;
   }
-
 
   const title =
     (
@@ -1296,24 +1686,9 @@ async function openVehicle(
     )
     .trim();
 
-
-  let image =
-    vehicle.imagen || "";
-
-
-  if (
-    !image &&
-    Array.isArray(
-      vehicle.imagenes
-    ) &&
-    vehicle.imagenes.length
-  ) {
-
-    image =
-      vehicle.imagenes[0];
-
-  }
-
+  prepareGallery(
+    vehicle
+  );
 
   document
     .getElementById(
@@ -1321,15 +1696,6 @@ async function openVehicle(
     )
     .textContent =
       title;
-
-
-  document
-    .getElementById(
-      "modalImage"
-    )
-    .src =
-      image || "";
-
 
   document
     .getElementById(
@@ -1381,7 +1747,6 @@ async function openVehicle(
       .filter(Boolean)
       .join(" · ");
 
-
   document
     .getElementById(
       "modalDescription"
@@ -1390,7 +1755,6 @@ async function openVehicle(
 
       vehicle.descripcion ||
       "Consultanos para obtener más información sobre este vehículo.";
-
 
   const message =
 
@@ -1428,7 +1792,6 @@ async function openVehicle(
 
     `\n\n¿Sigue disponible?`;
 
-
   document
     .getElementById(
       "modalWhatsapp"
@@ -1440,14 +1803,12 @@ async function openVehicle(
         message
       );
 
-
   document
     .getElementById(
       "modal"
     )
     .classList
     .add("active");
-
 
   try {
 
